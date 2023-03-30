@@ -1,0 +1,30 @@
+body {
+    font-family: sans-serif;
+    background-color: #202124;
+}
+
+.wrap-main {
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.wrap-header {
+    width: 100%;
+}
+
+.wrap-header a {
+    color: aliceblue;
+    text-decoration: none;
+    font-size: medium;
+    float: right;
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+}
+
+.wrap-header a:hover {
+    text-decoration: underline;
+}
