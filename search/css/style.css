@@ -4,7 +4,6 @@ body {
 }
 
 .wrap-main {
-
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -16,7 +15,7 @@ body {
 }
 
 .wrap-header a {
-    color: aliceblue;
+    color: #e8eaed;
     text-decoration: none;
     font-size: medium;
     float: right;
@@ -27,4 +26,9 @@ body {
 
 .wrap-header a:hover {
     text-decoration: underline;
+}
+
+.wrap-img {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
 }
