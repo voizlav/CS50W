@@ -46,7 +46,6 @@ body {
 
 .wrap-search {
     all: unset;
-    box-sizing: border-box;
     font-size: large;
     font-weight: 600;
     color: #bdc1c6;
@@ -68,25 +67,21 @@ body {
 .wrap-buttons {
     display: inline-flex;
     justify-content: center;
-    padding-top: 1rem;
+    margin-top: 1rem;
     width: 100%;
 }
 
 .wrap-button {
     all: unset;
-    color: #e8eaed;
-    background-color: #303134;
-    border: 1px solid #303134;
     font-size: medium;
     font-weight: 500;
     white-space: nowrap;
+    color: #e8eaed;
+    background-color: #303134;
+    border: 1px solid #303134;
     border-radius: .4rem;
-    margin-left: .5rem;
-    margin-right: .5rem;
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
-    padding-top: .7rem;
-    padding-bottom: .7rem;
+    margin: 0rem .5rem;
+    padding: .7rem 1.2rem;
 }
 
 .wrap-button:hover {
