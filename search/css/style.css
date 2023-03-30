@@ -3,7 +3,6 @@ body {
     background-color: #202124;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .wrap-main {
@@ -22,7 +21,7 @@ body {
 .wrap-header a {
     color: #e8eaed;
     text-decoration: none;
-    font-size: small;
+    font-size: medium;
     float: right;
     padding-top: 1rem;
     padding-left: 1.5rem;
@@ -46,9 +45,9 @@ body {
 }
 
 .wrap-search {
+    all: unset;
     box-sizing: border-box;
-    outline: none;
-    font-size: medium;
+    font-size: large;
     font-weight: 600;
     color: #bdc1c6;
     background-color: #202124;
@@ -57,9 +56,40 @@ body {
     padding: .8rem 2rem;
     margin-bottom: 1rem;
     width: 100%;
+    min-width: 450px;
 }
 
-.wrap-search:hover {
+.wrap-search:hover,
+.wrap-search:focus {
     background-color: #303134;
     border-color: #303134;
+}
+
+.wrap-buttons {
+    display: inline-flex;
+    justify-content: center;
+    padding-top: 1rem;
+    width: 100%;
+}
+
+.wrap-button {
+    all: unset;
+    color: #e8eaed;
+    background-color: #303134;
+    border: 1px solid #303134;
+    font-size: medium;
+    font-weight: 500;
+    white-space: nowrap;
+    border-radius: .4rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    padding-top: .7rem;
+    padding-bottom: .7rem;
+}
+
+.wrap-button:hover {
+    cursor: pointer;
+    border: 1px solid #5f6368;
 }
