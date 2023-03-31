@@ -1,2 +1,42 @@
-
-<!--TODO-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <title>Search</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="wrap-main">
+        <div class="wrap-header">
+            <a href="/search/index.html">Google Search</a>
+        </div>
+        <div class="wrap-bar">
+            <label>Advanced Search</label>
+        </div>
+        <div class="wrap-advanced-form">
+            <form action="https://www.google.com/search" class="wrap-advanced">
+                <div class="wrap-input">
+                    <label>all these words:</label>
+                    <input type="text" name="as_q" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="wrap-input">
+                    <label>this exact word or phrase:</label>
+                    <input type="text" name="as_epq" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="wrap-input">
+                    <label>any of these words:</label>
+                    <input type="text" name="as_oq" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="wrap-input">
+                    <label>none of these words:</label>
+                    <input type="text" name="as_eq" autocomplete="off" spellcheck="false">
+                </div>
+                <input type="submit" name="btnK" value="Advanced Search" class="wrap-advanced-button">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
