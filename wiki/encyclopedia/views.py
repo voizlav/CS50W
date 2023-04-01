@@ -1,8 +1,24 @@
+from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from random import choice
 from . import util
+
+
+class NewArticleForm(forms.Form):
+    title = forms.CharField(
+        label="",
+        max_length=15,
+        widget=forms.TextInput(attrs={"class": "form-title", "placeholder": "Title"}),
+    )
+    article = forms.CharField(
+        label="",
+        max_length=500,
+        widget=forms.Textarea(
+            attrs={"class": "form-article", "placeholder": "Write your article..."},
+        ),
+    )
 
 
 def index(request):
@@ -36,3 +52,22 @@ def random(request):
     articles = util.list_entries()
     random_choice = choice(articles)
     return HttpResponseRedirect(reverse("article", args=[random_choice]))
+
+
+def new(request):
+    if request.method == "POST":
+        form = NewArticleForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            article = form.cleaned_data["article"]
+            articles = util.list_entries()
+            if title.lower() in [a.lower() for a in articles]:
+                return render(
+                    request,
+                    "encyclopedia/new.html",
+                    {"form": form, "error": "Title already exists"},
+                )
+            util.save_entry(title, article)
+            return HttpResponseRedirect(reverse("article", args=[title]))
+        return render(request, "encyclopedia/new.html", {"form": form})
+    return render(request, "encyclopedia/new.html", {"form": NewArticleForm()})
