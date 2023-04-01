@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from random import choice
 from . import util
 
 
@@ -29,3 +30,9 @@ def search(request):
     return render(
         request, "encyclopedia/index.html", {"entries": result, "search": True}
     )
+
+
+def random(request):
+    articles = util.list_entries()
+    random_choice = choice(articles)
+    return HttpResponseRedirect(reverse("article", args=[random_choice]))
