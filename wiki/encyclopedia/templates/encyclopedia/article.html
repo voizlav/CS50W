@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Test
+{% endblock %}
+
+{% block body %}
+    {% if not content %}
+    <div class="wrap-notfound">
+        <h3>Oops! It looks like this page doesn't exist yet.</h3>
+        <p>You can try searching for a related article or create a new page to share your knowledge with the world!</p>
+    </div>
+    {% else %}
+        {{ content | safe }}
+    {% endif %}
+{% endblock %}
