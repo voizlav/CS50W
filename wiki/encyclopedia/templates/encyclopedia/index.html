@@ -5,12 +5,19 @@
 {% endblock %}
 
 {% block body %}
-    <h1>All Pages</h1>
-
+    {% if search %}
+        <h1>Result</h1>
+    {% else %}
+        <h1>All Pages</h1>
+    {% endif %}
+    {% if not entries %}
+        <p>It looks like there is no such a page yet, you can create a new page to share your knowledge with the world!</p>
+    {% else %}
     <ul>
         {% for entry in entries %}
             <li><a href="{% url 'article' entry %}">{{ entry }}</a></li>
         {% endfor %}
     </ul>
+    {% endif %}
 
 {% endblock %}
