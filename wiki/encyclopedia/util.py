@@ -44,5 +44,8 @@ def get_entry(title):
 
 
 def to_markdown(content):
+    """
+    Convert markdown to HTML elements.
+    """
     markdowner = Markdown()
     return markdowner.convert(content)
