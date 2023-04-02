@@ -28,7 +28,12 @@ def index(request):
 
 
 def article(request, title):
-    content = util.to_markdown(util.get_entry(title))
+    content = util.get_entry(title)
+    if not content:
+        return render(
+            request, "encyclopedia/article.html", {"content": content, "title": "404"}
+        )
+    content = util.to_markdown(content)
     return render(
         request, "encyclopedia/article.html", {"content": content, "title": title}
     )
