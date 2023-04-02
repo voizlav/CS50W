@@ -1,0 +1,27 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit Page
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+    <div class="wrap-error">
+        <h3>{{ error }}</h3>
+    </div>
+    {% endif %}
+    {% if not_found %}
+    <h3>Oops! Can't edit page.</h3>
+    <p>It looks like there is no such a page yet, you can create a new page to share your knowledge with the world!</p>
+    {% else %}
+    <h1>Edit {{ form.title.value }} Page</h1>
+    <form action="{% url 'edit' form.title.value %}" method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <div class="button-new">
+            <input type="submit" value="Save">
+        </div>
+    </form>
+    {% endif %}
+
+{% endblock %}
