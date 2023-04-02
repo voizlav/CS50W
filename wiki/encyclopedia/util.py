@@ -1,6 +1,5 @@
 import re
-from markdown2 import Markdown
-
+import markdown
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 
@@ -47,5 +46,5 @@ def to_markdown(content):
     """
     Convert markdown to HTML elements.
     """
-    markdowner = Markdown()
-    return markdowner.convert(content)
+    html = markdown.markdown(content, extensions=["fenced_code", "codehilite"])
+    return html
