@@ -29,7 +29,9 @@ def index(request):
 
 def article(request, title):
     content = util.to_markdown(util.get_entry(title))
-    return render(request, "encyclopedia/article.html", {"content": content})
+    return render(
+        request, "encyclopedia/article.html", {"content": content, "title": title}
+    )
 
 
 def search(request):
