@@ -29,7 +29,7 @@ textarea {
 
 .search {
     all: unset;
-    width: 50vw;
+    width: 40vw;
     font-size: small;
     font-weight: 600;
     padding: 1rem 2rem;
@@ -47,7 +47,6 @@ textarea {
 }
 
 .search:focus {
-    background-color: white;
     color: #3F3F3E;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     border: 1px solid #C3C3C1;
@@ -114,7 +113,8 @@ textarea {
 }
 
 .wrap-article,
-.wrap-index {
+.wrap-index,
+.wrap-new {
     margin-right: 0rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -123,6 +123,60 @@ textarea {
     border-bottom: 1px solid #C3C3C1;
     min-height: 60vh;
 }
+
+.wrap-heading-new {
+    text-align: center;
+    color: #434342;
+}
+
+.wrap-new-form {
+    color: #434342;
+    padding: 1rem 5rem;
+}
+
+.form-title {
+    all: unset;
+    display: block;
+    font-size: medium;
+    font-weight: 600;
+    padding: .6rem 1.2rem;
+    margin: 2rem 0;
+    background-color: #F2F2F1;
+    border: 1px solid #F2F2F1;
+    border-radius: .3rem;
+}
+
+.form-title:focus,
+.form-article:focus {
+    color: #3F3F3E;
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #CDCDCA;
+}
+
+.form-title::placeholder,
+.form-article::placeholder {
+    color: #8A8A89;
+    font-weight: 600;
+}
+
+.form-title:focus::placeholder,
+.form-article:focus::placeholder {
+    color: #C3C3C1;
+}
+
+.form-article {
+    all: unset;
+    resize: none;
+    background-color: #F2F2F1;
+    padding: 1rem;
+    border: 1px solid white;
+    border-radius: .5rem;
+    width: 100%;
+    color: #434342;
+    min-height: 40vh;
+}
+
 
 .wrap-heading {
     text-align: center;
@@ -176,7 +230,8 @@ textarea {
     font-size: large;
 }
 
-.wrap-content {
+.wrap-content,
+.wrap-new-form {
     color: #434342;
     padding: 1rem 5rem;
     border-top-left-radius: .5rem;
@@ -185,6 +240,7 @@ textarea {
     border: 1px solid #E0E0DD;
     border-right: none;
 }
+
 
 .wrap-content a {
     text-decoration: none;
