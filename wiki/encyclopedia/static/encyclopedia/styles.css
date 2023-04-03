@@ -37,9 +37,9 @@ textarea {
     margin-top: 1rem;
     line-height: 15px;
     color: black;
-    background-color: white;
     border: 1px solid #E0E0DD;
     border-radius: 2rem;
+    transition: 0.2s ease-in-out;
 }
 
 .search::placeholder {
@@ -113,17 +113,70 @@ textarea {
     width: 85%;
 }
 
-.wrap-article {
+.wrap-article,
+.wrap-index {
     margin-right: 0rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
     padding-left: 2rem;
     border-top: 1px solid #C3C3C1;
-    border-bottom: 1px solid #C3C3C1;;
+    border-bottom: 1px solid #C3C3C1;
+    min-height: 60vh;
+}
+
+.wrap-heading {
+    text-align: center;
+    color: #434342;
+    border-bottom: 1px solid #E0E0DD;
+}
+
+.wrap-result {
+    color: #434342;
+    padding: 1rem 5rem;
+}
+
+.wrap-entries {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.wrap-entries a {
+    text-decoration: none;
+    color: #434342;
+}
+
+.wrap-entry {
+    cursor: pointer;
+    text-align: center;
+    font-size: larger;
+    font-weight: 600;
+    overflow: hidden;
+    color: #8A8A89;
+    background-color: #F2F2F1;
+    border: 1px solid #F2F2F1;
+    border-radius: .4rem;
+    padding: 2rem 2rem;
+    transition: 0.3s ease-in-out;
+}
+
+.wrap-entry:hover {
+    color: #434342;
+    background-color: white;
+    border: 1px solid #C3C3C1;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-result {
+    color: #434342;
+    text-align: center;
+    padding-top: 3rem;
+    font-size: large;
 }
 
 .wrap-content {
-    background-color: white;
     color: #434342;
     padding: 1rem 5rem;
     border-top-left-radius: .5rem;
