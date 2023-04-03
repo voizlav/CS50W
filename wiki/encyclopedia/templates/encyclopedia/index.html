@@ -5,19 +5,31 @@
 {% endblock %}
 
 {% block body %}
-    {% if search %}
-        <h1>Search Result</h1>
-    {% else %}
-        <h1>All Pages</h1>
-    {% endif %}
-    {% if not entries %}
-        <p>It looks like there is no such a page yet, you can create a new page to share your knowledge with the world!</p>
-    {% else %}
-    <ul>
-        {% for entry in entries %}
-            <li><a href="{% url 'article' entry %}">{{ entry }}</a></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    <div class="wrap-index">
+        <div class="wrap-heading">
+        {% if search %}
+            <h1>Search Result</h1>
+        {% else %}
+            <h1>All Pages</h1>
+        {% endif %}
+        </div>
+        {% if not entries %}
+        <div class="no-result">
+            <p>It looks like there is no such a page yet, you can create a new page to share your knowledge with the world!</p>
+        </div>
+        {% else %}
+        <div class="wrap-result">
+            <div class="wrap-entries">
+                {% for entry in entries %}
+                    <a href="{% url 'article' entry %}">
+                        <div class="wrap-entry">
+                            {{ entry }}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock %}
