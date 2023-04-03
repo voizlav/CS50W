@@ -16,7 +16,7 @@ class NewArticleForm(forms.Form):
     )
     article = forms.CharField(
         label="",
-        max_length=500,
+        max_length=20000,
         widget=forms.Textarea(
             attrs={"class": "form-article", "placeholder": "Write your article..."},
         ),
