@@ -241,7 +241,6 @@ textarea {
     border-right: none;
 }
 
-
 .wrap-content a {
     text-decoration: none;
     font-weight: 600;
@@ -287,4 +286,30 @@ textarea {
     color: #545453;
     min-height: 60vh;
     text-align: center;
+}
+
+.errorlist {
+    all: unset;
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.errorlist li {
+    all: unset;
+    color: #C35A5D;
+    border-radius: .3rem;
+    background-color: #FDE3E3;
+    padding: .5rem 1rem;
+}
+
+.wrap-error {
+    display: inline-block;
+    font-size: medium;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #C35A5D;
+    border-radius: .3rem;
+    background-color: #FDE3E3;
+    padding: .5rem 1rem;
 }
