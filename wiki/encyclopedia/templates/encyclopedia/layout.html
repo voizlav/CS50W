@@ -5,33 +5,32 @@
 <html lang="en">
     <head>
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'encyclopedia/pygments.css' %}">
     </head>
     <body>
-        <div class="row">
-            <div class="sidebar col-lg-2 col-md-3">
-                <h2>Wiki</h2>
-                <form action="{% url 'search' %}">
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                </form>
-                <div>
+        <div class="wrap-header">
+            <form action="{% url 'search' %}">
+                <input class="search" type="text" name="q" placeholder="Search Encyclopedia" autocomplete="off">
+            </form>
+        </div>
+        <div class="wrapper">
+            <div class="sidebar">
+                <h2>🌐 Wiki </h2>
+                <div class="wrap-link">
                     <a href="{% url 'index' %}">Home</a>
                 </div>
-                <div>
+                <div class="wrap-link">
                     <a href="{% url 'new' %}">Create New Page</a>
-                </div>
-                <div>
+                </div class="wrap-link">
+                <div class="wrap-link">
                     <a href="{% url 'random' %}">Random Page</a>
                 </div>
-                {% block nav %}
-                {% endblock %}
             </div>
-            <div class="main col-lg-10 col-md-9">
+            <div class="main">
                 {% block body %}
                 {% endblock %}
             </div>
-        </div>
-
+          </div>
     </body>
 </html>
