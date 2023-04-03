@@ -5,18 +5,26 @@
 {% endblock %}
 
 {% block body %}
-    {% if error %}
-    <div class="wrap-error">
-        <h3>{{ error }}</h3>
-    </div>
-    {% endif %}
-    <h1>Create New Page</h1>
-    <form action="{% url 'new' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <div class="button-new">
-            <input type="submit" value="Save">
+    <div class="wrap-new">
+        <div class="wrap-heading-new">
+            <h1>Create New Page</h1>
         </div>
-    </form>
-
+        {% if error %}
+        <div class="wrap-error">
+            <h3>{{ error }}</h3>
+        </div>
+        {% endif %}
+        <div class="wrap-new-form">
+            <form action="{% url 'new' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <div class="wrap-button">
+                    <input type="submit" value="Save Page">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        autosize(document.querySelector("textarea"))
+    </script>
 {% endblock %}
