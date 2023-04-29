@@ -1,9 +1,51 @@
-from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django import forms
+from .models import Auction
+
+
+class AuctionForm(forms.ModelForm):
+    class Meta:
+        model = Auction
+        fields = "__all__"
+        widgets = {
+            "description": forms.TextInput(
+                attrs={
+                    "autofocus": True,
+                    "placeholder": "Description",
+                    "class": "form-control",
+                }
+            ),
+            "starting_bid": forms.NumberInput(
+                attrs={
+                    "placeholder": 0,
+                    "class": "form-control",
+                },
+            ),
+            "category": forms.TextInput(
+                attrs={
+                    "placeholder": "Category",
+                    "class": "form-control",
+                },
+            ),
+            "hyperlink": forms.TextInput(
+                attrs={
+                    "placeholder": "Link",
+                    "class": "form-control",
+                },
+            ),
+        }
+        labels = {
+            "title": "",
+            "description": "",
+            "starting_bid": "",
+            "category": "",
+            "hyperlink": "",
+        }
+        label_suffix = ""
 
 
 def index(request):
@@ -64,4 +106,7 @@ def register(request):
 
 
 def create(request):
-    return render(request, "auctions/create.html")
+    if request.method == "POST":
+        ...
+
+    return render(request, "auctions/create.html", {"form": AuctionForm()})
