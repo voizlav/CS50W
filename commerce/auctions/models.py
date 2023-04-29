@@ -11,7 +11,7 @@ class Auction(models.Model):
     description = models.CharField(max_length=1000)
     starting_bid = models.IntegerField(default=0)
     category = models.CharField(blank=True, max_length=30)
-    hyperlink = models.CharField(blank=True, max_length=200)
+    hyperlink = models.URLField(blank=True, max_length=200)
 
 
 class Bids:
