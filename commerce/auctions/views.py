@@ -5,14 +5,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Auction
-
-
-class NewAuctionForm(forms.ModelForm):
-    class Meta:
-        model = Auction
-        fields = "__all__"
-
 
 def index(request):
     return render(request, "auctions/index.html")
