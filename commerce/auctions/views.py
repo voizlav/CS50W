@@ -18,7 +18,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
 
         # Check if authentication successful
-        if user is not None:
+        if user:
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         return render(
