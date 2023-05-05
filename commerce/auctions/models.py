@@ -7,6 +7,7 @@ class User(AbstractUser):
 
 
 class Auction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
     description = models.CharField(max_length=1000)
     starting_bid = models.IntegerField(default=0)
