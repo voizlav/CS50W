@@ -10,42 +10,7 @@ from .models import Auction
 class AuctionForm(forms.ModelForm):
     class Meta:
         model = Auction
-        fields = "__all__"
-        widgets = {
-            "description": forms.TextInput(
-                attrs={
-                    "autofocus": True,
-                    "placeholder": "Description",
-                    "class": "form-control",
-                }
-            ),
-            "starting_bid": forms.NumberInput(
-                attrs={
-                    "placeholder": 0,
-                    "class": "form-control",
-                },
-            ),
-            "category": forms.TextInput(
-                attrs={
-                    "placeholder": "Category",
-                    "class": "form-control",
-                },
-            ),
-            "hyperlink": forms.TextInput(
-                attrs={
-                    "placeholder": "Link",
-                    "class": "form-control",
-                },
-            ),
-        }
-        labels = {
-            "title": "",
-            "description": "",
-            "starting_bid": "",
-            "category": "",
-            "hyperlink": "",
-        }
-        label_suffix = ""
+        fields = ["title", "description", "auction_bid", "category", "hyperlink"]
 
 
 def index(request):
@@ -107,6 +72,9 @@ def register(request):
 
 def create(request):
     if request.method == "POST":
-        ...
+        form = AuctionForm(request.POST)
+        form = NotesForm(request.POST)
+        if form.is_valid():
+            ...
 
     return render(request, "auctions/create.html", {"form": AuctionForm()})
