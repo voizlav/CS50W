@@ -10,7 +10,7 @@ from .models import Auction
 class AuctionForm(forms.ModelForm):
     class Meta:
         model = Auction
-        fields = ["title", "description", "auction_bid", "category", "hyperlink"]
+        fields = ["title", "description", "starting_bid", "category", "hyperlink"]
 
 
 def index(request):
