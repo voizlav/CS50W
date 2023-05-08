@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 
 
 class User(AbstractUser):
@@ -13,6 +14,7 @@ class Auction(models.Model):
     starting_bid = models.IntegerField(default=0)
     category = models.CharField(blank=True, max_length=30)
     hyperlink = models.URLField(blank=True, max_length=200)
+    time = models.TimeField(default=timezone.now().time())
 
 
 class Bids:
