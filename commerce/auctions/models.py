@@ -15,6 +15,7 @@ class Auction(models.Model):
     category = models.CharField(blank=True, max_length=30)
     hyperlink = models.URLField(blank=True, max_length=200)
     time = models.TimeField(default=timezone.now().time())
+    active = models.BooleanField(default=True)
 
 
 class Bids:
