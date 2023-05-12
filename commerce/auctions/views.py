@@ -90,5 +90,5 @@ def create(request):
                 hyperlink=hyperlink,
             )
             new_auction.save()
-
+            return render(request, "auctions/index.html")
     return render(request, "auctions/create.html", {"form": AuctionForm()})
