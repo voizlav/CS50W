@@ -76,19 +76,16 @@ def create(request):
     if request.method == "POST":
         form = AuctionForm(request.POST)
         if form.is_valid():
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            starting_bid = form.cleaned_data["starting_bid"]
-            category = form.cleaned_data["category"]
-            hyperlink = form.cleaned_data["hyperlink"]
-
-            new_auction = Auction(
-                title=title,
-                description=description,
-                starting_bid=starting_bid,
-                category=category,
-                hyperlink=hyperlink,
-            )
+            new_auction = Auction()
+            new_auction.user = request.user
+            new_auction.title = form.cleaned_data["title"]
+            new_auction.description = form.cleaned_data["description"]
+            if form.cleaned_data["starting_bid"]:
+                new_auction.starting_bid = form.cleaned_data["starting_bid"]
+            if form.cleaned_data["category"]:
+                new_auction.category = form.cleaned_data["category"]
+            if form.cleaned_data["hyperlink"]:
+                new_auction.hyperlink = form.cleaned_data["hyperlink"]
             new_auction.save()
             return render(request, "auctions/index.html")
     return render(request, "auctions/create.html", {"form": AuctionForm()})
