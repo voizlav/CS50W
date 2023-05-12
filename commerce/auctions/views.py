@@ -89,5 +89,6 @@ def create(request):
                 category=category,
                 hyperlink=hyperlink,
             )
+            new_auction.save()
 
     return render(request, "auctions/create.html", {"form": AuctionForm()})
