@@ -76,6 +76,7 @@ def create(request):
     if request.method == "POST":
         form = AuctionForm(request.POST)
         if form.is_valid():
-            ...
+            title = form.cleaned_data["title"]
+            description = form.cleaned_data["description"]
 
     return render(request, "auctions/create.html", {"form": AuctionForm()})
