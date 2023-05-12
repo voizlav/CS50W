@@ -82,4 +82,12 @@ def create(request):
             category = form.cleaned_data["category"]
             hyperlink = form.cleaned_data["hyperlink"]
 
+            new_auction = Auction(
+                title=title,
+                description=description,
+                starting_bid=starting_bid,
+                category=category,
+                hyperlink=hyperlink,
+            )
+
     return render(request, "auctions/create.html", {"form": AuctionForm()})
