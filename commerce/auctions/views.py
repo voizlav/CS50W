@@ -78,5 +78,8 @@ def create(request):
         if form.is_valid():
             title = form.cleaned_data["title"]
             description = form.cleaned_data["description"]
+            starting_bid = form.cleaned_data["starting_bid"]
+            category = form.cleaned_data["category"]
+            hyperlink = form.cleaned_data["hyperlink"]
 
     return render(request, "auctions/create.html", {"form": AuctionForm()})
