@@ -1,7 +1,12 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+    
+    <div class="container">
     <h1>Create listing</h1>
+    <div class="alert alert-warning" role="alert">
+        {{ message }}
+    </div>
     <form action="{% url 'create' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -28,4 +33,5 @@
         </div>
         <input class="btn btn-primary" type="submit" value="Create">
     </form>
+    </div>
 {% endblock %}
