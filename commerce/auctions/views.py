@@ -88,5 +88,5 @@ def create(request):
                 new_auction.hyperlink = form.cleaned_data["hyperlink"]
             new_auction.save()
             return render(request, "auctions/index.html")
-        return render(request, "auctions/create.html", {"form": form})
+        return render(request, "auctions/create.html", {"message": "Invalid form."})
     return render(request, "auctions/create.html", {"form": AuctionForm()})
