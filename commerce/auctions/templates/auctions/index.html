@@ -1,7 +1,44 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
 
-    TODO
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h2>Active Listings</h2>
+    </div>
+    {% if all_listing %}
+    <div class="row">
+        {% for auction in all_listing %}
+        <div class="col-md-4 mt-5">
+            <div class="card h-100">
+                <div class="card-header">
+                    <p class="card-text">$ {{auction.starting_bid}}</p>
+                </div>
+                {% if auction.hyperlink %}
+                <div class="d-flex align-items-center justify-content-center h-50 overflow-hidden">
+                    <img class="img-fluid" src="{{auction.hyperlink}}" onerror="this.src='/static/img/noimage.jpg'">
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title">{{auction.title}}</h3>
+                    <div style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                        <p class="card-text">{{auction.description}}</p>
+                    </div>
+                </div>
+                <div class="card-footer ">
+                    <!--TODO-->
+                    <a href="#" class="btn btn-secondary">See more</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <!--TODO-->
+        <p>There are currently no items available for listing.</p>
+    {% endif %}
+</div>
+    
+    
+    
 {% endblock %}
