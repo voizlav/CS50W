@@ -9,14 +9,24 @@ class User(AbstractUser):
 
 
 class Auction(models.Model):
+    CATEGORIES = [
+        ("F", "fashion"),
+        ("T", "toys"),
+        ("E", "electronics"),
+        ("H", "home"),
+        ("O", "other"),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
     starting_bid = models.IntegerField(
         default=0, validators=[MinValueValidator(0), MaxValueValidator(2147483647)]
     )
-    category = models.CharField(blank=True, max_length=30)
-    hyperlink = models.URLField(blank=True, max_length=200)
+    category = models.CharField(blank=True, max_length=30, choices=CATEGORIES)
+    hyperlink = models.URLField(
+        default="/static/img/noimage.jpg", blank=True, max_length=200
+    )
     time = models.TimeField(default=timezone.now().time())
     active = models.BooleanField(default=True)
 
