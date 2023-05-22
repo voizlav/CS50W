@@ -3,7 +3,7 @@
 {% block body %}
     
     <div class="container">
-    <h1 class="text-primary">Create listing</h1>
+    <h2>Create listing</h2>
     {% if message %}
     <div class="alert alert-warning" role="alert">
         {{ message }}
@@ -22,7 +22,7 @@
         </div>
         <div class="form-group">
             <select class="form-control" name="category">
-                <option value="" disabled selected>Category</option>
+                <option disabled selected>Category</option>
                 <option value="F">Fashion</option>
                 <option value="T">Toys</option>
                 <option value="E">Electronics</option>
