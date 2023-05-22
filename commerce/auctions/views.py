@@ -15,7 +15,9 @@ class AuctionForm(forms.ModelForm):
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    all_listing = Auction.objects.filter(active=True)
+    print(all_listing)
+    return render(request, "auctions/index.html", {"all_listing": all_listing})
 
 
 def login_view(request):
@@ -46,16 +48,12 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
-
-        # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(
                 request, "auctions/register.html", {"message": "Passwords must match."}
             )
-
-        # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
@@ -87,6 +85,6 @@ def create(request):
             if form.cleaned_data["hyperlink"]:
                 new_auction.hyperlink = form.cleaned_data["hyperlink"]
             new_auction.save()
-            return render(request, "auctions/index.html")
+            return HttpResponseRedirect(reverse("index"))
         return render(request, "auctions/create.html", {"message": "Invalid form."})
     return render(request, "auctions/create.html", {"form": AuctionForm()})
