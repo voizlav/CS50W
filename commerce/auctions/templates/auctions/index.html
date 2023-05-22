@@ -11,8 +11,8 @@
         {% for auction in all_listing %}
         <div class="col-md-4 mt-5">
             <div class="card h-100">
-                <div class="card-header">
-                    <p class="card-text">$ {{auction.starting_bid}}</p>
+                <div class="card-header" style="text-align: center;">
+                    <p class="card-text">${{auction.starting_bid|floatformat:2}}</p>
                 </div>
                 {% if auction.hyperlink %}
                 <div class="d-flex align-items-center justify-content-center h-50 overflow-hidden">
@@ -25,9 +25,8 @@
                         <p class="card-text">{{auction.description}}</p>
                     </div>
                 </div>
-                <div class="card-footer ">
-                    <!--TODO-->
-                    <a href="#" class="btn btn-secondary">See more</a>
+                <div class="card-footer">
+                    <a href="/item/{{auction.id}}" class="btn btn-dark btn-sm">See more</a>
                 </div>
             </div>
         </div>
