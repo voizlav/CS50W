@@ -9,27 +9,29 @@
     {% if all_listing %}
     <div class="row">
         {% for auction in all_listing %}
-        <div class="col-md-4 mt-5">
-            <div class="card h-100">
-                <div class="card-header" style="text-align: center;">
-                    <p class="card-text">${{auction.starting_bid|floatformat:2}}</p>
-                </div>
-                {% if auction.hyperlink %}
-                <div class="d-flex align-items-center justify-content-center h-50 overflow-hidden">
-                    <img class="img-fluid" src="{{auction.hyperlink}}" onerror="this.src='/static/img/noimage.jpg'">
-                </div>
-                {% endif %}
-                <div class="card-body">
-                    <h3 class="card-title">{{auction.title}}</h3>
-                    <div style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                        <p class="card-text">{{auction.description}}</p>
+            {% if auction.active %}
+            <div class="col-md-4 mt-5">
+                <div class="card h-100">
+                    <div class="card-header" style="text-align: center;">
+                        <p class="card-text">${{auction.starting_bid|floatformat:2}}</p>
+                    </div>
+                    {% if auction.hyperlink %}
+                    <div class="d-flex align-items-center justify-content-center h-50 overflow-hidden">
+                        <img class="img-fluid" src="{{auction.hyperlink}}" onerror="this.src='/static/img/noimage.jpg'">
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{auction.title}}</h3>
+                        <div style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                            <p class="card-text">{{auction.description}}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/item/{{auction.id}}" class="btn btn-dark btn-sm">See more</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="/item/{{auction.id}}" class="btn btn-dark btn-sm">See more</a>
-                </div>
             </div>
-        </div>
+            {% endif %}
         {% endfor %}
     </div>
     {% else %}
