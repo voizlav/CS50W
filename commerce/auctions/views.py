@@ -16,18 +16,14 @@ class AuctionForm(forms.ModelForm):
 
 def index(request):
     all_listing = Auction.objects.filter(active=True)
-    print(all_listing)
     return render(request, "auctions/index.html", {"all_listing": all_listing})
 
 
 def login_view(request):
     if request.method == "POST":
-        # Attempt to sign user in
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
-
-        # Check if authentication successful
         if user:
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
