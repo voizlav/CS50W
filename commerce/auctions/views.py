@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django import forms
 from .models import Auction, User
@@ -84,3 +84,9 @@ def create(request):
             return HttpResponseRedirect(reverse("index"))
         return render(request, "auctions/create.html", {"message": "Invalid form."})
     return render(request, "auctions/create.html", {"form": AuctionForm()})
+
+
+@login_required
+def items(request, item_id):
+    item = get_object_or_404(Auction, id=item_id)
+    return render(request, "auctions/items.html", {"item": item})
