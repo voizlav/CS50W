@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone, datetime_safe
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
@@ -27,7 +27,7 @@ class Auction(models.Model):
     hyperlink = models.URLField(
         default="/static/img/noimage.jpg", blank=True, max_length=200
     )
-    time = models.TimeField(default=timezone.now().time())
+    time = models.DateTimeField(default=timezone.now)
     active = models.BooleanField(default=True)
 
 
