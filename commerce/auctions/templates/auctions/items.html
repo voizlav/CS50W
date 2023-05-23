@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container pb-5">
+    {% if not item.active %}
+    <div class="alert alert-warning text-center" role="alert">
+        Bidding process completed. The item has been successfully <b>sold</b>!
+    </div>
+    {% endif %}
+    <div class="row border-bottom pb-3">
+        <div class="col-md-6">
+            <div class="img-thumbnail text-center shadow p-3">
+                <img class="rounded-4 img-thumbnail border-0" src="{{item.hyperlink}}" onerror="this.src='/static/img/noimage.jpg'">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1 class="border-bottom pb-3 pt-3">
+                {{item.title}}
+            </h1>
+            <button type="button"
+                    {% if not item.active %} disabled {% endif %}
+                    class="btn rounded-pill mt-3 mb-3 text-bg-{% if item.active %}success{% else %}danger{% endif %} text-white shadow"
+                    data-bs-toggle="modal" data-bs-target="#Bidding" data-bs-toggle="tooltip"
+                    title="Place your best bid now!">
+                <span class="fw-bold fs-4">{{item.starting_bid|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
+            </button>
+            <p class="pt-3">{{item.description}}</p>
+            <p class="pt-3 text-muted">Listing created by <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
