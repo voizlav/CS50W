@@ -2,6 +2,9 @@
 
 {% block body %}
 <div class="container pb-5">
+    {% if user.is_authenticated %}
+    <h1>test</h1>
+    {% endif %}
     {% if not item.active %}
     <div class="alert alert-warning text-center" role="alert">
         Bidding process completed. The item has been successfully <b>sold</b>!
@@ -29,8 +32,7 @@
         </div>
     </div>
 </div>
-{% if item.active %}
-<!--TODO-->
+{% if item.active and user.is_authenticated %}
 <div class="modal fade" id="Bidding" tabindex="-1"  aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -41,7 +43,7 @@
             <form action="" method="post">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <input type="number" name="placebid" class="form-control fs-4">
+                    <input type="number" name="placebid" class="form-control fs-4" placeholder="Bid" min="{{item.starting_bid}}" max="2147483647">
                     <div class="form-text ">
                         <span class="fw-light">Enter your bid amount for the item, ensuring it surpasses the current highest bid of </span>
                         <span class="fw-bolder">{{item.starting_bid|floatformat:2}}</span>
