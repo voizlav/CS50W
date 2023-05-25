@@ -89,3 +89,15 @@ def create(request):
 def items(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     return render(request, "auctions/items.html", {"item": item})
+
+
+@login_required
+def close_item(request, item_id):
+    item = get_object_or_404(Auction, id=item_id)
+    if request.method == "POST":
+        if request.user.is_authenticated and request.user == item.user:
+            item.active = False
+            item.save()
+            return HttpResponseRedirect(reverse("item", args=[item_id]))
+        return HttpResponse("Unauthorized", status=401)
+    return HttpResponseRedirect(reverse("item", args=[item_id]))
