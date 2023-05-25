@@ -15,7 +15,7 @@
         </div>
         <div class="col-md-6">
             <h1 class="border-bottom pb-3 pt-3">
-                {{item.title}}
+                {{item.title|safe}}
             </h1>
             <button type="button"
                     {% if not item.active %} disabled {% endif %}
@@ -24,7 +24,7 @@
                     title="Place your best bid now!">
                 <span class="fw-bold fs-4">{{item.starting_bid|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
             </button>
-            <p class="pt-3">{{item.description}}</p>
+            <p class="pt-3">{{item.description|safe}}</p>
             <p class="pt-3 text-muted">Listing created by <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}</p>
         </div>
     </div>
