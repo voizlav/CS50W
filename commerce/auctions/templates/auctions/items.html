@@ -27,6 +27,14 @@
                     title="Place your best bid now!">
                 <span class="fw-bold fs-4">{{item.starting_bid|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
             </button>
+            {% if item.active %}
+            <form action="{% url 'close_item' item_id=item.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    <span class="fw-bold fs-4">Close</span>
+                </button>
+            </form>
+            {% endif %}
             <p class="pt-3">{{item.description|safe}}</p>
             <p class="pt-3 text-muted">Listing created by <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}</p>
         </div>
@@ -44,7 +52,7 @@
                 {% csrf_token %}
                 <div class="modal-body">
                     <input type="number" name="placebid" class="form-control fs-4" placeholder="Bid" min="{{item.starting_bid}}" max="2147483647">
-                    <div class="form-text ">
+                    <div class="form-text">
                         <span class="fw-light">Enter your bid amount for the item, ensuring it surpasses the current highest bid of </span>
                         <span class="fw-bolder">{{item.starting_bid|floatformat:2}}</span>
                         <span class="fw-light">€ by the minimum required increment.</span>
