@@ -86,7 +86,6 @@ def create(request):
     return render(request, "auctions/create.html", {"form": AuctionForm()})
 
 
-@login_required
 def items(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     return render(request, "auctions/items.html", {"item": item})
