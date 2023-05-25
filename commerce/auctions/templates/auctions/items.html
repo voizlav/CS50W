@@ -2,9 +2,6 @@
 
 {% block body %}
 <div class="container pb-5">
-    {% if user.is_authenticated %}
-    <h1>test</h1>
-    {% endif %}
     {% if not item.active %}
     <div class="alert alert-warning text-center" role="alert">
         Bidding process completed. The item has been successfully <b>sold</b>!
@@ -20,6 +17,17 @@
             <h1 class="border-bottom pb-3 pt-3">
                 {{item.title|safe}}
             </h1>
+            <!-- CLOSE BUTTON -->
+            {% if item.active and user.is_authenticated and user == item.user %}
+            <form action="{% url 'close_item' item_id=item.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit"
+                    class="btn rounded-pill mt-3 mb-3 text-bg-danger text-white shadow">
+                    <span class="fw-bold fs-6">Close Auction at {{item.starting_bid|floatformat:2}} €</span>
+                </button>
+            </form>
+            <!-- BID BUTTON -->
+            {% else %} 
             <button type="button"
                     {% if not item.active %} disabled {% endif %}
                     class="btn rounded-pill mt-3 mb-3 text-bg-{% if item.active %}success{% else %}danger{% endif %} text-white shadow"
@@ -27,19 +35,13 @@
                     title="Place your best bid now!">
                 <span class="fw-bold fs-4">{{item.starting_bid|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
             </button>
-            {% if item.active %}
-            <form action="{% url 'close_item' item_id=item.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit">
-                    <span class="fw-bold fs-4">Close</span>
-                </button>
-            </form>
             {% endif %}
             <p class="pt-3">{{item.description|safe}}</p>
             <p class="pt-3 text-muted">Listing created by <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}</p>
         </div>
     </div>
 </div>
+<!-- BID MODAL -->
 {% if item.active and user.is_authenticated %}
 <div class="modal fade" id="Bidding" tabindex="-1"  aria-hidden="true">
     <div class="modal-dialog">
