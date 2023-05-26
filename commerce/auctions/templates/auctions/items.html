@@ -2,10 +2,17 @@
 
 {% block body %}
 <div class="container pb-5">
+
     {% if not item.active %}
-    <div class="alert alert-warning text-center" role="alert">
-        Bidding process completed. The item has been successfully <b>sold</b>!
-    </div>
+        {% if item.winner.username == user.username %}
+        <div class="alert alert-success text-center" role="alert">
+            Congratulations! You <b>won</b> the auction.
+        </div>
+        {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+            Bidding process completed. The item has been successfully <b>sold</b>!
+        </div>
+        {% endif %}
     {% endif %}
     <div class="row border-bottom pb-3">
         <div class="col-md-6">
@@ -22,7 +29,7 @@
             <form action="{% url 'close_item' item_id=item.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit"
-                    class="btn rounded-pill mt-3 mb-3 text-bg-danger text-white shadow">
+                    class="btn rounded-pill mt-3 mb-3 text-bg-danger text-white shadow bg-gradient">
                     <span class="fw-bold fs-6">Close Auction at {{item.starting_bid|floatformat:2}} €</span>
                 </button>
             </form>
@@ -30,7 +37,7 @@
             {% else %} 
             <button type="button"
                     {% if not item.active %} disabled {% endif %}
-                    class="btn rounded-pill mt-3 mb-3 text-bg-{% if item.active %}success{% else %}danger{% endif %} text-white shadow"
+                    class="btn rounded-pill mt-3 mb-3 text-bg-{% if item.active %}success{% else %}danger{% endif %} text-white shadow bg-gradient"
                     data-bs-toggle="modal" data-bs-target="#Bidding" data-bs-toggle="tooltip"
                     title="Place your best bid now!">
                 <span class="fw-bold fs-4">{{item.starting_bid|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
