@@ -34,7 +34,7 @@ class Auction(models.Model):
     )
     category = models.CharField(blank=True, max_length=30, choices=CATEGORIES)
     hyperlink = models.URLField(
-        default="/static/img/noimage.jpg", blank=True, max_length=200
+        default="/static/img/noimage.png", blank=True, max_length=200
     )
     time = models.DateTimeField(default=timezone.now)
     active = models.BooleanField(default=True)

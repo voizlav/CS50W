@@ -5,8 +5,8 @@
 
     {% if not item.active %}
         {% if item.winner.username == user.username %}
-        <div class="alert alert-success text-center" role="alert">
-            Congratulations! You <b>won</b> the auction.
+        <div class="alert alert-primary text-center" role="alert">
+            Congratulations! You <b>won</b> the auction. 🧢
         </div>
         {% else %}
         <div class="alert alert-warning text-center" role="alert">
@@ -16,8 +16,8 @@
     {% endif %}
     <div class="row border-bottom pb-3">
         <div class="col-md-6">
-            <div class="img-thumbnail text-center shadow p-3">
-                <img class="rounded-4 img-thumbnail border-0" src="{{item.hyperlink}}" onerror="this.src='/static/img/noimage.jpg'">
+            <div class="img-thumbnail text-center shadow p-3 ">
+                <img class="bg-secondary bg-opacity-10 rounded-4 img-thumbnail border-0" src="{{item.hyperlink}}" onerror="this.src='/static/img/noimage.png'">
             </div>
         </div>
         <div class="col-md-6">
