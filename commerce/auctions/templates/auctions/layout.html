@@ -12,10 +12,10 @@
     </head>
     <body>
         <!-- BRANDING -->
-        <div class="d-flex justify-content-between align-items-center p-3">
+        <div class="d-flex justify-content-between align-items-center p-3 ps-5 pe-5">
             <span class="fs-2">🧢 Auctions</span>
             {% if user.is_authenticated %}
-            <span class="fs-6 text-muted">Signed in as <strong>{{ user.username }}</strong>.</span>
+            <span class="fs-6 text-muted ">Signed in as <strong>{{ user.username }}</strong>.</span>
             {% else %}
             <span class="fs-6 text-muted">Not signed in.</span>
             {% endif %}
