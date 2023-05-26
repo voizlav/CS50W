@@ -11,8 +11,8 @@
         {% for auction in all_listing %}
             {% if auction.active %}
             <div class="col-md-6 mt-5">
-                <div class="card h-100">
-                    <div class="card-header" style="text-align: center;">
+                <div class="card h-100 border-0">
+                    <div class="card-header border-0 bg-primary bg-opacity-75 border-primary text-white" style="text-align: center;">
                         <h5 class="fw-bolder card-text">{{auction.starting_bid|floatformat:2}} <span class="fw-normal">€</span></h5>
                     </div>
                     {% if auction.hyperlink %}
@@ -20,15 +20,15 @@
                         <img class="img-fluid" src="{{auction.hyperlink}}" onerror="this.src='/static/img/noimage.png'">
                     </div>
                     {% endif %}
-                    <div class="card-body">
-                        <h3 class="card-title">{{auction.title}}</h3>
+                    <div class="card-body shadow-sm">
+                        <h3 class="card-title border-bottom pb-1">{{auction.title}}</h3>
                         <div style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;">
                             <p class="card-text">{{auction.description}}</p>
                         </div>
                         <p class="text-muted mt-2">Created {{auction.time|timesince}} ago.</p>
                     </div>
-                    <div class="card-footer">
-                        <a href="/item/{{auction.id}}" class="btn btn-dark btn-sm">See more</a>
+                    <div class="card-footer border-0 bg-white shadow">
+                        <a href="/item/{{auction.id}}" class="btn btn-primary bg-gradient text-white btn-sm">See more</a>
                     </div>
                 </div>
             </div>
