@@ -17,7 +17,16 @@ class Auction(models.Model):
         ("O", "other"),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="auction_creator"
+    )
+    winner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="auction_winner",
+    )
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
     starting_bid = models.IntegerField(
