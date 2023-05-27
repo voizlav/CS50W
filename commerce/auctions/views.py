@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -16,9 +17,6 @@ class AuctionForm(forms.ModelForm):
 
 class BidForm(forms.Form):
     bid_amount = forms.IntegerField()
-
-
-from django.db.models import Max
 
 
 def index(request):
@@ -118,6 +116,7 @@ def close_item(request, item_id):
 @login_required
 def bid_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
+    latest_bid = item.bids.latest("timestamp")
     if request.method == "POST":
         if not request.user.is_authenticated:
             return HttpResponse("Unauthorized", status=401)
@@ -125,10 +124,34 @@ def bid_item(request, item_id):
         if form.is_valid():
             if item.active:
                 bid_amount = form.cleaned_data["bid_amount"]
-                print("BID DEBUG:", bid_amount)
-                # TODO Implement bid class model
-
-                return HttpResponseRedirect(reverse("item", args=[item_id]))
-            return HttpResponse("Inactive item", status=400)
-        return HttpResponse("Invalid bid", status=400)
+                if bid_amount > latest_bid.amount:
+                    bid = Bids()
+                    bid.auction = item
+                    bid.user = request.user
+                    bid.amount = bid_amount
+                    bid.save()
+                    return HttpResponseRedirect(reverse("item", args=[item_id]))
+                return render(
+                    request,
+                    "auctions/items.html",
+                    {
+                        "item": item,
+                        "bid": latest_bid,
+                        "message": "Please provide a higher bid to place a valid offer.",
+                    },
+                )
+            return render(
+                request,
+                "auctions/items.html",
+                {
+                    "item": item,
+                    "bid": latest_bid,
+                    "message": "The auction you are trying to bid is closed.",
+                },
+            )
+        return render(
+            request,
+            "auctions/items.html",
+            {"item": item, "bid": latest_bid, "message": "Invalid bid amount."},
+        )
     return HttpResponseRedirect(reverse("item", args=[item_id]))
