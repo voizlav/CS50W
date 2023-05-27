@@ -78,13 +78,17 @@ def create(request):
             new_auction.user = request.user
             new_auction.title = form.cleaned_data["title"]
             new_auction.description = form.cleaned_data["description"]
-            if form.cleaned_data["starting_bid"]:
-                new_auction.starting_bid = form.cleaned_data["starting_bid"]
             if form.cleaned_data["category"]:
                 new_auction.category = form.cleaned_data["category"]
             if form.cleaned_data["hyperlink"]:
                 new_auction.hyperlink = form.cleaned_data["hyperlink"]
             new_auction.save()
+            bid = Bids()
+            bid.user = request.user
+            if form.cleaned_data["starting_bid"]:
+                bid.amount = form.cleaned_data["starting_bid"]
+            bid.auction = new_auction
+            bid.save()
             return HttpResponseRedirect(reverse("index"))
         return render(request, "auctions/create.html", {"message": "Invalid form."})
     return render(request, "auctions/create.html", {"form": AuctionForm()})
