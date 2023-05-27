@@ -40,9 +40,13 @@ class Auction(models.Model):
     active = models.BooleanField(default=True)
 
 
-class Bids:
-    # TODO
-    pass
+class Bids(models.Model):
+    auction = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name="bids")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(2147483647)]
+    )
+    timestamp = models.DateTimeField(auto_now_add=True)
 
 
 class Comments:
