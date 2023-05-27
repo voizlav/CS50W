@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django import forms
-from .models import Auction, User
+from .models import Auction, User, Bids
 
 
 class AuctionForm(forms.ModelForm):
