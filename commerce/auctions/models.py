@@ -36,7 +36,7 @@ class Auction(models.Model):
     hyperlink = models.URLField(
         default="/static/img/noimage.png", blank=True, max_length=200
     )
-    time = models.DateTimeField(default=timezone.now)
+    time = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
 
 
