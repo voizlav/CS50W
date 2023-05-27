@@ -13,7 +13,7 @@
             <div class="col-md-6 mt-5">
                 <div class="card h-100 border-0">
                     <div class="card-header border-0 bg-primary bg-opacity-75 border-primary text-white" style="text-align: center;">
-                        <h5 class="fw-bolder card-text">{{auction.starting_bid|floatformat:2}} <span class="fw-normal">€</span></h5>
+                        <h5 class="fw-bolder card-text">{{auction.bid|floatformat:2}} <span class="fw-normal">€</span></h5>
                     </div>
                     {% if auction.hyperlink %}
                     <div class="bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center overflow-hidden" style="max-height: 20rem;">
@@ -44,7 +44,5 @@
         </div>
     {% endif %}
 </div>
-    
-    
-    
+
 {% endblock %}
