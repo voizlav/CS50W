@@ -35,7 +35,7 @@
                 {% csrf_token %}
                 <button type="submit"
                     class="btn rounded-pill mt-3 mb-3 text-bg-danger text-white shadow bg-gradient">
-                    <span class="fw-bold fs-6">Close Auction at {{item.starting_bid|floatformat:2}} €</span>
+                    <span class="fw-bold fs-6">Close Auction at {{bid.amount|floatformat:2}} €</span>
                 </button>
             </form>
             <!-- BID BUTTON -->
@@ -45,7 +45,7 @@
                     class="btn rounded-pill mt-3 mb-3 text-bg-{% if item.active %}success{% else %}danger{% endif %} text-white shadow bg-gradient"
                     data-bs-toggle="modal" data-bs-target="#Bidding" data-bs-toggle="tooltip"
                     title="Place your best bid now!">
-                <span class="fw-bold fs-4">{{item.starting_bid|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
+                <span class="fw-bold fs-4">{{bid.amount|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
             </button>
             {% endif %}
             <p class="pt-3">{{item.description|safe}}</p>
@@ -65,10 +65,10 @@
             <form action="{% url 'bid_item' item_id=item.id %}" method="post">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <input type="number" name="bid_amount" class="form-control fs-4" placeholder="Bid" min="{{item.starting_bid}}" max="2147483647" required>
+                    <input type="number" name="bid_amount" class="form-control fs-4" placeholder="Bid" min="{{bid.amount}}" max="2147483647" required>
                     <div class="form-text">
                         <span class="fw-light">Enter your bid amount for the item, ensuring it surpasses the current highest bid of </span>
-                        <span class="fw-bolder">{{item.starting_bid|floatformat:2}}</span>
+                        <span class="fw-bolder">{{bid.amount|floatformat:2}}</span>
                         <span class="fw-light">€ by the minimum required increment.</span>
                     </div>
                 </div>
