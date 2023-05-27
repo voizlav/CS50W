@@ -120,6 +120,7 @@ def close_item(request, item_id):
 def bid_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     latest_bid = item.bids.latest("timestamp")
+    all_bids = item.bids.all()
     if request.method == "POST":
         if not request.user.is_authenticated:
             return HttpResponse("Unauthorized", status=401)
@@ -140,6 +141,7 @@ def bid_item(request, item_id):
                     {
                         "item": item,
                         "bid": latest_bid,
+                        "all_bids": all_bids,
                         "message": "Please provide a higher bid to place a valid offer.",
                     },
                 )
@@ -149,12 +151,18 @@ def bid_item(request, item_id):
                 {
                     "item": item,
                     "bid": latest_bid,
+                    "all_bids": all_bids,
                     "message": "The auction you are trying to bid is closed.",
                 },
             )
         return render(
             request,
             "auctions/items.html",
-            {"item": item, "bid": latest_bid, "message": "Invalid bid amount."},
+            {
+                "item": item,
+                "bid": latest_bid,
+                "all_bids": all_bids,
+                "message": "Invalid bid amount.",
+            },
         )
     return HttpResponseRedirect(reverse("item", args=[item_id]))
