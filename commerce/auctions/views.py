@@ -18,8 +18,11 @@ class BidForm(forms.Form):
     bid_amount = forms.IntegerField()
 
 
+from django.db.models import Max
+
+
 def index(request):
-    all_listing = Auction.objects.filter(active=True)
+    all_listing = Auction.objects.filter(active=True).annotate(bid=Max("bids__amount"))
     return render(request, "auctions/index.html", {"all_listing": all_listing})
 
 
