@@ -101,3 +101,12 @@ def close_item(request, item_id):
             return HttpResponseRedirect(reverse("item", args=[item_id]))
         return HttpResponse("Unauthorized", status=401)
     return HttpResponseRedirect(reverse("item", args=[item_id]))
+
+
+@login_required
+def bid_item(request, item_id):
+    item = get_object_or_404(Auction, id=item_id)
+    if request.method == "POST":
+        # TODO: add logic
+        ...
+    return HttpResponseRedirect(reverse("item", args=[item_id]))
