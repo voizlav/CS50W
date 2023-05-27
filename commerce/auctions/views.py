@@ -14,6 +14,10 @@ class AuctionForm(forms.ModelForm):
         fields = ["title", "description", "starting_bid", "category", "hyperlink"]
 
 
+class BidForm(forms.Form):
+    bid_amount = forms.IntegerField()
+
+
 def index(request):
     all_listing = Auction.objects.filter(active=True)
     return render(request, "auctions/index.html", {"all_listing": all_listing})
@@ -107,6 +111,16 @@ def close_item(request, item_id):
 def bid_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     if request.method == "POST":
-        # TODO: add logic
-        ...
+        if not request.user.is_authenticated:
+            return HttpResponse("Unauthorized", status=401)
+        form = BidForm(request.POST)
+        if form.is_valid():
+            if item.active:
+                bid_amount = form.cleaned_data["bid_amount"]
+                print("BID DEBUG:", bid_amount)
+                # TODO Implement bid class model
+
+                return HttpResponseRedirect(reverse("item", args=[item_id]))
+            return HttpResponse("Inactive item", status=400)
+        return HttpResponse("Invalid bid", status=400)
     return HttpResponseRedirect(reverse("item", args=[item_id]))
