@@ -97,8 +97,11 @@ def create(request):
 
 def items(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
+    all_bids = item.bids.all()
     bid = item.bids.latest("timestamp")
-    return render(request, "auctions/items.html", {"item": item, "bid": bid})
+    return render(
+        request, "auctions/items.html", {"item": item, "bid": bid, "all_bids": all_bids}
+    )
 
 
 @login_required
