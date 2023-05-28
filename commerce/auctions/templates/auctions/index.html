@@ -16,7 +16,7 @@
                         <h5 class="fw-bolder card-text">{{auction.bid|floatformat:2}} <span class="fw-normal">€</span></h5>
                     </div>
                     {% if auction.hyperlink %}
-                    <div class="bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center overflow-hidden" style="max-height: 20rem;">
+                    <div class="bg-primary bg-opacity-10 d-flex align-items-center justify-content-center overflow-hidden" style="max-height: 20rem;">
                         <img class="img-fluid" src="{{auction.hyperlink}}" onerror="this.src='/static/img/noimage.png'">
                     </div>
                     {% endif %}
