@@ -168,3 +168,13 @@ def bid_item(request, item_id):
             },
         )
     return HttpResponseRedirect(reverse("item", args=[item_id]))
+
+
+@login_required
+def comment_item(request, item_id):
+    item = get_object_or_404(Auction, id=item_id)
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            return HttpResponse("Unauthorized", status=401)
+        # TODO
+    return HttpResponseRedirect(reverse("item", args=[item_id]))
