@@ -107,9 +107,11 @@ def items(request, item_id):
 @login_required
 def close_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
+    bid = item.bids.latest("timestamp")
     if request.method == "POST":
         if request.user.is_authenticated and request.user == item.user:
             item.active = False
+            item.winner = bid.user
             item.save()
             return HttpResponseRedirect(reverse("item", args=[item_id]))
         return HttpResponse("Unauthorized", status=401)
