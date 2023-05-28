@@ -50,5 +50,9 @@ class Bids(models.Model):
 
 
 class Comments:
-    # TODO
-    pass
+    auction = models.ForeignKey(
+        Auction, on_delete=models.CASCADE, related_name="comment"
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=1000)
+    timestamp = models.DateTimeField(auto_now_add=True)
