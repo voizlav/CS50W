@@ -63,7 +63,10 @@
             {% endfor %}
             {% if not item.active %}
             <p class="text-muted">
-                <small>Listing closed at {{bid.amount|floatformat:2}} €</small>
+                <small>
+                    Listing closed with a winning bid of <b>{{bid.amount|floatformat:2}}</b> € 
+                    by <b>{{item.winner.username}}</b>
+                </small>
             </p>
             {% endif %}
         </div>
