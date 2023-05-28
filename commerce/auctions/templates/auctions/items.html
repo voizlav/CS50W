@@ -27,7 +27,7 @@
         </div>
         <div class="col-md-6">
             <h1 class="border-bottom pb-3 pt-3">
-                {{item.title|safe}}
+                {{item.title}}
             </h1>
             <!-- CLOSE BUTTON -->
             {% if item.active and user.is_authenticated and user == item.user %}
@@ -48,11 +48,12 @@
                 <span class="fw-bold fs-4">{{bid.amount|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
             </button>
             {% endif %}
-            <p class="pt-3">{{item.description|safe}}</p>
+            <p class="pt-3">{{item.description}}</p>
+
         </div>
     </div>
     <!-- BIDS HISTORY -->
-    <div class="container pt-3 pb-5" style="max-width: 700px;">
+    <div class="container pt-3 pb-5" style="max-width: 800px;">
         <ol class="list-group list-group-flush">
             <li class="list-group-item text-muted fs-5">Listing created by <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}</li>
             {% for history_bid in all_bids %}
@@ -61,7 +62,7 @@
                     <div class="fw-bold">{{history_bid.user.username}}</div>
                     <small>placed a {% if forloop.first %}starting{% endif %} bid at {{history_bid.timestamp|date:"H:i"}} on {{history_bid.timestamp|date:"F j"}}</small> 
                 </div>
-                <span class="badge bg-primary {% if forloop.last %}bg-gradient{% else %}bg-opacity-50{% endif %} rounded-pill">{{history_bid.amount|floatformat:2}} €</span>
+                <span class="badge bg-primary fs-6 {% if forloop.last %}bg-gradient{% else %}bg-opacity-50{% endif %} rounded-pill">{{history_bid.amount|floatformat:2}} €</span>
             </li>
             {% endfor %}
             {% if not item.active %}
@@ -70,16 +71,33 @@
         </ol>
     </div>
     <!-- COMMENTS -->
-    <div class="container pt-5" style="max-width: 700px;">
+    <div class="container pt-5" style="max-width: 800px;">
         <h4 class="pb-3 border-bottom text-muted">Comments</h4>
+        {% if all_comments %}
+        <ul class="list-group list-group-flush">
+            {% for comment in all_comments %}
+            <li class="list-group-item border-0 d-flex justify-content-between align-items-start">
+                <img class="img-fluid rounded-5" src="/static/img/user.png" style="width: 35px;"/>
+                <div class="ms-2 me-auto">
+                    
+                    <div class="fw-bold">{{comment.user.username}} {% if comment.user.username == item.user.username %}<span class="badge text-bg-primary bg-opacity-10">
+                        <small class="text-primary text-opacity-75">Seller</small></span>{% endif %}
+                    </div>
+                    <p class="text-wrap text-break">{{comment.content}}</p>
+                </div>
+                <small class="text-muted text-nowrap">{{comment.timestamp|date:"F j, Y"}}</small>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
         <div class="d-flex align-items-center justify-content-center pt-3 pb-3">
-            <!-- TODO if comments -->
             <div class="text-center">
                 <img class="img-fluid" src="/static/img/nocomment.png" style="width: 150px;"/>
                 <p class="text-muted pt-3"><small>There are currently no comments available for this auction.</small></p>
             </div>
         </div>
-        <form action="{% url 'comment_item' item_id=item.id %}" method="post">
+        {% endif %}
+        <form action="{% url 'comment_item' item_id=item.id %}" class="pt-3" method="post">
             {% csrf_token %}
             <div class="form-floating">
                 <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="commentTextarea" style="height: 100px"></textarea>
