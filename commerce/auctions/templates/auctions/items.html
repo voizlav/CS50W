@@ -22,7 +22,7 @@
     <div class="row border-bottom pb-3">
         <div class="col-md-6">
             <div class="img-thumbnail text-center shadow p-3 ">
-                <img class="bg-secondary bg-opacity-10 rounded-4 img-thumbnail border-0" src="{{item.hyperlink}}" onerror="this.src='/static/img/noimage.png'">
+                <img class="rounded-4 img-thumbnail border-0" src="{{item.hyperlink}}" onerror="this.src='/static/img/noimage.png'">
             </div>
         </div>
         <div class="col-md-6">
@@ -49,34 +49,31 @@
             </button>
             {% endif %}
             <p class="pt-3">{{item.description|safe}}</p>
-            <h4 class="border-bottom pt-3 pb-1">History</h4>
-            <p class="text-muted pt-3 ">
-                <small>Listing created by <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}</small>
-            </p>
-            {% for history_bid in all_bids %}
-            <p class="text-muted">
-                <small>
-                    <b>{{history_bid.user.username}}</b> placed a bid of <b>{{history_bid.amount|floatformat:2}}</b> € 
-                    at {{history_bid.timestamp|date:"H:i"}} on {{history_bid.timestamp|date:"F j"}}
-                </small>
-            </p>
-            {% endfor %}
-            {% if not item.active %}
-            <p class="text-muted">
-                <small>
-                    Listing closed with a winning bid of <b>{{bid.amount|floatformat:2}}</b> € 
-                    by <b>{{item.winner.username}}</b>
-                </small>
-            </p>
-            {% endif %}
         </div>
     </div>
+    <div class="container pt-3 pb-5" style="max-width: 700px;">
+        <ol class="list-group list-group-flush">
+            <li class="list-group-item text-muted fs-5">Listing created by <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}</li>
+            {% for history_bid in all_bids %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">{{history_bid.user.username}}</div>
+                    <small>placed a {% if forloop.first %}starting{% endif %} bid at {{history_bid.timestamp|date:"H:i"}} on {{history_bid.timestamp|date:"F j"}}</small> 
+                </div>
+                <span class="badge bg-primary {% if forloop.last %}bg-gradient{% else %}bg-opacity-50{% endif %} rounded-pill">{{history_bid.amount|floatformat:2}} €</span>
+            </li>
+            {% endfor %}
+            {% if not item.active %}
+            <li class="list-group-item text-muted">Listing closed with a winning bid of <b>{{bid.amount|floatformat:2}}</b> € by <b>{{item.winner.username}}</b></li>
+            {% endif %}
+        </ol>
+    </div>
     <!-- COMMENTS -->
-    <div class="container pt-5">
+    <div class="container pt-5" style="max-width: 700px;">
         <form action="" method="post">
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="commentTextarea" style="height: 100px"></textarea>
-                <label for="commentTextarea">Comments</label>
+                <label for="commentTextarea">Leave a comment here...</label>
             </div>
             <div class="pt-3">
                 <input class="btn btn-primary btn-sm bg-gradient" type="submit" value="Submit">
