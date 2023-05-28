@@ -103,8 +103,11 @@ def items(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     all_bids = item.bids.all()
     bid = item.bids.latest("timestamp")
+    all_comments = item.comment.all()
     return render(
-        request, "auctions/items.html", {"item": item, "bid": bid, "all_bids": all_bids}
+        request,
+        "auctions/items.html",
+        {"item": item, "bid": bid, "all_bids": all_bids, "all_comments": all_comments},
     )
 
 
