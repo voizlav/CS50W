@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django import forms
-from .models import Auction, User, Bids
+from .models import Auction, User, Bids, Comments
 
 
 class AuctionForm(forms.ModelForm):
@@ -17,6 +17,10 @@ class AuctionForm(forms.ModelForm):
 
 class BidForm(forms.Form):
     bid_amount = forms.IntegerField()
+
+
+class CommentForm(forms.Form):
+    comment = forms.CharField(max_length=1000)
 
 
 def index(request):
@@ -173,8 +177,27 @@ def bid_item(request, item_id):
 @login_required
 def comment_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
+    latest_bid = item.bids.latest("timestamp")
+    all_bids = item.bids.all()
     if request.method == "POST":
         if not request.user.is_authenticated:
             return HttpResponse("Unauthorized", status=401)
-        # TODO
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = Comments()
+            comment.content = form.cleaned_data["comment"]
+            comment.user = request.user
+            comment.auction = item
+            comment.save()
+            return HttpResponseRedirect(reverse("item", args=[item_id]))
+        return render(
+            request,
+            "auctions/items.html",
+            {
+                "item": item,
+                "bid": latest_bid,
+                "all_bids": all_bids,
+                "message": "Invalid comment.",
+            },
+        )
     return HttpResponseRedirect(reverse("item", args=[item_id]))
