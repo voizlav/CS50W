@@ -49,19 +49,23 @@
             </button>
             {% endif %}
             <p class="pt-3">{{item.description|safe}}</p>
-            <h5 class="border-bottom pt-3 pb-1">History</h5>
+            <h4 class="border-bottom pt-3 pb-1">History</h4>
             <p class="text-muted pt-3 ">
-                Listing created by 
-                <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}
+                <small>Listing created by <b>{{item.user}}</b> on {{item.time|date:"F j, Y"}}</small>
             </p>
             {% for history_bid in all_bids %}
             <p class="text-muted">
-                <b>{{history_bid.user.username}}</b> placed a bid of 
-                <b>{{history_bid.amount|floatformat:2}}</b> €
-                at {{history_bid.timestamp|date:"H:i"}}
-                on {{history_bid.timestamp|date:"F j"}}
+                <small>
+                    <b>{{history_bid.user.username}}</b> placed a bid of <b>{{history_bid.amount|floatformat:2}}</b> € 
+                    at {{history_bid.timestamp|date:"H:i"}} on {{history_bid.timestamp|date:"F j"}}
+                </small>
             </p>
             {% endfor %}
+            {% if not item.active %}
+            <p class="text-muted">
+                <small>Listing closed at {{bid.amount|floatformat:2}} €</small>
+            </p>
+            {% endif %}
         </div>
     </div>
 </div>
