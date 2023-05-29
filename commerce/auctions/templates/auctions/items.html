@@ -48,15 +48,14 @@
                 <span class="fw-bold fs-4">{{bid.amount|floatformat:2}}</span> <span class="fw-normal fs-5">€</span>
             </button>
             {% endif %}
-            <div class="">
-                <div class="pt-3 pb-3 text-center justify-content-around d-flex">
-                    <button type="submit" class="btn badge rounded-pill text-dark text-opacity-75 bg-white border-4 border-dark border-opacity-50">
-                        <span class="fs-6"><i class="bi bi-eye"></i> Add to watchlist</span>
-                    </button>
-                    <a href="#" class="btn badge rounded-pill text-dark text-opacity-75 bg-white border-2 border-dark border-opacity-50">
-                        <span class="fs-6"><i class="bi bi-tag"></i> Category {{item.get_category_display}}</span>
-                    </a>
-                </div>
+            <!-- WATCHLIST AND CATEGORY BUTTONS-->
+            <div class="pt-3 pb-3 text-center justify-content-around d-flex">
+                <button type="submit" class="btn badge rounded-pill text-dark text-opacity-75 bg-white border-4 border-dark border-opacity-50">
+                    <span class="fs-6"><i class="bi bi-eye"></i> Add to watchlist</span>
+                </button>
+                <a href="#" class="btn badge rounded-pill text-dark text-opacity-75 bg-white border-2 border-dark border-opacity-50">
+                    <span class="fs-6"><i class="bi bi-tag"></i> Category {{item.get_category_display}}</span>
+                </a>
             </div>
             <p class="pt-3">{{item.description}}</p>
         </div>
