@@ -210,5 +210,9 @@ def comment_item(request, item_id):
 def watchlist_add(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     if request.method == "POST":
-        pass
+        watch = Watchlist()
+        watch.auction = item
+        watch.user = request.user
+        watch.save()
+        return HttpResponseRedirect(reverse("item", args=[item_id]))
     return HttpResponseRedirect(reverse("item", args=[item_id]))
