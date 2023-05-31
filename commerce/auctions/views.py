@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django import forms
-from .models import Auction, User, Bids, Comments
+from .models import Auction, User, Bids, Comments, Watchlist
 
 
 class AuctionForm(forms.ModelForm):
@@ -206,6 +206,7 @@ def comment_item(request, item_id):
     return HttpResponseRedirect(reverse("item", args=[item_id]))
 
 
+@login_required
 def watchlist_add(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     if request.method == "POST":
