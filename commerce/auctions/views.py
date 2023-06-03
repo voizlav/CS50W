@@ -95,7 +95,7 @@ def create(request):
                 bid.amount = form.cleaned_data["starting_bid"]
             bid.auction = new_auction
             bid.save()
-            return HttpResponseRedirect(reverse("index"))
+            return redirect("index")
         msg = "Invalid form."
         messages.add_message(request, messages.WARNING, msg)
         redirect("create")
