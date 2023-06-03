@@ -56,9 +56,14 @@
             </button>
             {% endif %}
             <!-- WATCHLIST AND CATEGORY BUTTONS-->
-            <button type="submit" class="btn badge pt-3 pb-3 rounded-pill text-dark text-opacity-75 bg-secondary bg-opacity-10 border-dark border-0">
-                <span class="fs-6"><i class="bi bi-eye"></i> Add to watchlist</span>
-            </button>
+            <form action="{% url 'watchlist_add' item_id=item.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" 
+                        style="width: 100%;"
+                        class="btn badge pt-3 pb-3 rounded-pill text-dark text-opacity-75 bg-secondary bg-opacity-10 border-dark border-0">
+                    <span class="fs-6"><i class="bi bi-eye"></i> Add to watchlist</span>
+                </button>
+            </form>
             <a href="#" class="btn badge mt-3 pt-3 pb-3 rounded-pill text-dark text-opacity-75 bg-secondary bg-opacity-10 border-dark border-0">
                 <span class="fs-6"><i class="bi bi-tag"></i> Category {{item.get_category_display}}</span>
             </a>
