@@ -164,8 +164,6 @@ def bid_item(request, item_id):
 @login_required
 def comment_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
-    latest_bid = item.bids.latest("timestamp")
-    all_bids = item.bids.all()
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
