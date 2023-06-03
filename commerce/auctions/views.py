@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.urls import reverse
 from django import forms
 from .models import Auction, User, Bids, Comments, Watchlist
@@ -144,23 +145,14 @@ def bid_item(request, item_id):
                     bid.amount = bid_amount
                     bid.save()
                     return HttpResponseRedirect(reverse("item", args=[item_id]))
-                messages.add_message(
-                    request,
-                    messages.WARNING,
-                    "Please provide a higher bid to place a valid offer.",
-                )
+                msg = "Please provide a higher bid to place a valid offer."
+                messages.add_message(request, messages.WARNING, msg)
                 return redirect("item", item_id=item_id)
-            messages.add_message(
-                request,
-                messages.WARNING,
-                "The auction you are trying to bid is closed.",
-            )
+            msg = "The auction you are trying to bid is closed."
+            messages.add_message(request, messages.WARNING, msg)
             return redirect("item", item_id=item_id)
-        messages.add_message(
-            request,
-            messages.WARNING,
-            "Invalid bid amount.",
-        )
+        msg = "Invalid bid amount."
+        messages.add_message(request, messages.WARNING, msg)
         return redirect("item", item_id=item_id)
     return HttpResponseRedirect(reverse("item", args=[item_id]))
 

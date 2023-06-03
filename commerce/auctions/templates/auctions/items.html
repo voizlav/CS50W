@@ -19,6 +19,11 @@
         {{message}}
     </div>
     {% endif %}
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} text-center" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
     <div class="row border-bottom pb-5">
         <div class="col-md-6">
             <!-- IMAGE -->
