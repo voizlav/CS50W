@@ -189,5 +189,7 @@ def watchlist_add(request, item_id):
         watch.auction = item
         watch.user = request.user
         watch.save()
-        return HttpResponseRedirect(reverse("item", args=[item_id]))
+        msg = "Item successfully added to your watchlist!"
+        messages.add_message(request, messages.INFO, msg)
+        return redirect("item", item_id=item_id)
     return HttpResponseRedirect(reverse("item", args=[item_id]))
