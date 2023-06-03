@@ -104,6 +104,7 @@ def items(request, item_id):
     all_bids = item.bids.all()
     bid = item.bids.latest("timestamp")
     all_comments = item.comment.all()
+    messages.get_messages(request)
     return render(
         request,
         "auctions/items.html",
@@ -129,7 +130,6 @@ def close_item(request, item_id):
 def bid_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     latest_bid = item.bids.latest("timestamp")
-    all_bids = item.bids.all()
     if request.method == "POST":
         if not request.user.is_authenticated:
             return HttpResponse("Unauthorized", status=401)
@@ -144,36 +144,24 @@ def bid_item(request, item_id):
                     bid.amount = bid_amount
                     bid.save()
                     return HttpResponseRedirect(reverse("item", args=[item_id]))
-                return render(
+                messages.add_message(
                     request,
-                    "auctions/items.html",
-                    {
-                        "item": item,
-                        "bid": latest_bid,
-                        "all_bids": all_bids,
-                        "message": "Please provide a higher bid to place a valid offer.",
-                    },
+                    messages.WARNING,
+                    "Please provide a higher bid to place a valid offer.",
                 )
-            return render(
+                return redirect("item", item_id=item_id)
+            messages.add_message(
                 request,
-                "auctions/items.html",
-                {
-                    "item": item,
-                    "bid": latest_bid,
-                    "all_bids": all_bids,
-                    "message": "The auction you are trying to bid is closed.",
-                },
+                messages.WARNING,
+                "The auction you are trying to bid is closed.",
             )
-        return render(
+            return redirect("item", item_id=item_id)
+        messages.add_message(
             request,
-            "auctions/items.html",
-            {
-                "item": item,
-                "bid": latest_bid,
-                "all_bids": all_bids,
-                "message": "Invalid bid amount.",
-            },
+            messages.WARNING,
+            "Invalid bid amount.",
         )
+        return redirect("item", item_id=item_id)
     return HttpResponseRedirect(reverse("item", args=[item_id]))
 
 
