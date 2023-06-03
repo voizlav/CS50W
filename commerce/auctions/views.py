@@ -163,8 +163,6 @@ def comment_item(request, item_id):
     latest_bid = item.bids.latest("timestamp")
     all_bids = item.bids.all()
     if request.method == "POST":
-        if not request.user.is_authenticated:
-            return HttpResponse("Unauthorized", status=401)
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = Comments()
