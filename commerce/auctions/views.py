@@ -146,7 +146,9 @@ def bid_item(request, item_id):
                     bid.user = request.user
                     bid.amount = bid_amount
                     bid.save()
-                    return HttpResponseRedirect(reverse("item", args=[item_id]))
+                    msg = "Bid accepted! You're now part of the bidding process for the item."
+                    messages.add_message(request, messages.INFO, msg)
+                    return redirect("item", item_id=item_id)
                 msg = "Please provide a higher bid to place a valid offer."
                 messages.add_message(request, messages.WARNING, msg)
                 return redirect("item", item_id=item_id)
@@ -156,7 +158,7 @@ def bid_item(request, item_id):
         msg = "Invalid bid amount."
         messages.add_message(request, messages.WARNING, msg)
         return redirect("item", item_id=item_id)
-    return HttpResponseRedirect(reverse("item", args=[item_id]))
+    return redirect("item", item_id=item_id)
 
 
 @login_required
