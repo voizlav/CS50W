@@ -124,11 +124,11 @@ def close_item(request, item_id):
             item.active = False
             item.winner = bid.user
             item.save()
-            return HttpResponseRedirect(reverse("item", args=[item_id]))
+            return redirect("item", item_id=item_id)
         msg = "Unauthorized."
         messages.add_message(request, messages.WARNING, msg)
         return redirect("item", item_id=item_id)
-    return HttpResponseRedirect(reverse("item", args=[item_id]))
+    return redirect("item", item_id=item_id)
 
 
 @login_required
