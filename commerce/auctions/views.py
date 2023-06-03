@@ -134,8 +134,6 @@ def bid_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     latest_bid = item.bids.latest("timestamp")
     if request.method == "POST":
-        if not request.user.is_authenticated:
-            return HttpResponse("Unauthorized", status=401)
         form = BidForm(request.POST)
         if form.is_valid():
             if item.active:
