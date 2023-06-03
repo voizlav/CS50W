@@ -96,7 +96,9 @@ def create(request):
             bid.auction = new_auction
             bid.save()
             return HttpResponseRedirect(reverse("index"))
-        return render(request, "auctions/create.html", {"message": "Invalid form."})
+        msg = "Invalid form."
+        messages.add_message(request, messages.WARNING, msg)
+        redirect("create")
     return render(request, "auctions/create.html", {"form": AuctionForm()})
 
 
