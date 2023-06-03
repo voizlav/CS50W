@@ -120,12 +120,14 @@ def close_item(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     bid = item.bids.latest("timestamp")
     if request.method == "POST":
-        if request.user.is_authenticated and request.user == item.user:
+        if request.user == item.user:
             item.active = False
             item.winner = bid.user
             item.save()
             return HttpResponseRedirect(reverse("item", args=[item_id]))
-        return HttpResponse("Unauthorized", status=401)
+        msg = "Unauthorized."
+        messages.add_message(request, messages.WARNING, msg)
+        return redirect("item", item_id=item_id)
     return HttpResponseRedirect(reverse("item", args=[item_id]))
 
 
@@ -170,7 +172,9 @@ def comment_item(request, item_id):
             comment.user = request.user
             comment.auction = item
             comment.save()
-            return HttpResponseRedirect(reverse("item", args=[item_id]))
+            msg = "Thank you for sharing your thoughts!"
+            messages.add_message(request, messages.INFO, msg)
+            return redirect("item", item_id=item_id)
         msg = "Invalid comment."
         messages.add_message(request, message.WARNING, msg)
         return redirect("item", item_id=item_id)
