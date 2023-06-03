@@ -14,11 +14,6 @@
         </div>
         {% endif %}
     {% endif %}
-    {% if message %}
-    <div class="alert alert-danger text-center" role="alert">
-        {{message}}
-    </div>
-    {% endif %}
     {% for message in messages %}
     <div class="alert alert-{{message.tags}} text-center" role="alert">
         {{message}}
