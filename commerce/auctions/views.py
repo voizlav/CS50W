@@ -192,4 +192,4 @@ def watchlist_add(request, item_id):
         msg = "Item successfully added to your watchlist!"
         messages.add_message(request, messages.INFO, msg)
         return redirect("item", item_id=item_id)
-    return HttpResponseRedirect(reverse("item", args=[item_id]))
+    return redirect("item", item_id=item_id)
