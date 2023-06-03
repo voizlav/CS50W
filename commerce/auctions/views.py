@@ -178,7 +178,7 @@ def comment_item(request, item_id):
         msg = "Invalid comment."
         messages.add_message(request, message.WARNING, msg)
         return redirect("item", item_id=item_id)
-    return HttpResponseRedirect(reverse("item", args=[item_id]))
+    return redirect("item", item_id=item_id)
 
 
 @login_required
