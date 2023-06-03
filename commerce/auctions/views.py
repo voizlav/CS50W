@@ -173,16 +173,9 @@ def comment_item(request, item_id):
             comment.auction = item
             comment.save()
             return HttpResponseRedirect(reverse("item", args=[item_id]))
-        return render(
-            request,
-            "auctions/items.html",
-            {
-                "item": item,
-                "bid": latest_bid,
-                "all_bids": all_bids,
-                "message": "Invalid comment.",
-            },
-        )
+        msg = "Invalid comment."
+        messages.add_message(request, message.WARNING, msg)
+        return redirect("item", item_id=item_id)
     return HttpResponseRedirect(reverse("item", args=[item_id]))
 
 
