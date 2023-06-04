@@ -185,6 +185,10 @@ def comment_item(request, item_id):
 def watchlist_add(request, item_id):
     item = get_object_or_404(Auction, id=item_id)
     if request.method == "POST":
+        if not item.active:
+            msg = "Closed auction item cannot be added to watchlist."
+            messages.add_message(request, messages.WARNING, msg)
+            return redirect("item", item_id=item_id)
         watch = Watchlist()
         watch.auction = item
         watch.user = request.user
