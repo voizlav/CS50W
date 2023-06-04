@@ -137,25 +137,25 @@ def bid_item(request, item_id):
     latest_bid = item.bids.latest("timestamp")
     if request.method == "POST":
         form = BidForm(request.POST)
-        if form.is_valid():
-            if item.active:
-                bid_amount = form.cleaned_data["bid_amount"]
-                if bid_amount > latest_bid.amount:
-                    bid = Bids()
-                    bid.auction = item
-                    bid.user = request.user
-                    bid.amount = bid_amount
-                    bid.save()
-                    msg = "Bid accepted! You're now part of the bidding process for the item."
-                    messages.add_message(request, messages.INFO, msg)
-                    return redirect("item", item_id=item_id)
-                msg = "Please provide a higher bid to place a valid offer."
-                messages.add_message(request, messages.WARNING, msg)
-                return redirect("item", item_id=item_id)
+        if not form.is_valid():
+            msg = "Invalid bid amount."
+            messages.add_message(request, messages.WARNING, msg)
+            return redirect("item", item_id=item_id)
+        if not item.active:
             msg = "The auction you are trying to bid is closed."
             messages.add_message(request, messages.WARNING, msg)
             return redirect("item", item_id=item_id)
-        msg = "Invalid bid amount."
+        bid_amount = form.cleaned_data["bid_amount"]
+        if bid_amount > latest_bid.amount:
+            bid = Bids()
+            bid.auction = item
+            bid.user = request.user
+            bid.amount = bid_amount
+            bid.save()
+            msg = "Bid accepted! You're now part of the bidding process for the item."
+            messages.add_message(request, messages.INFO, msg)
+            return redirect("item", item_id=item_id)
+        msg = "Please provide a higher bid to place a valid offer."
         messages.add_message(request, messages.WARNING, msg)
         return redirect("item", item_id=item_id)
     return redirect("item", item_id=item_id)
