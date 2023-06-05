@@ -30,6 +30,7 @@
                     <a class="badge text-bg-primary bg-gradient" href="{% url 'index' %}">Active Listings</a>
                     <a class="badge text-bg-primary bg-gradient" href="{% url 'create' %}">Create Listing</a>
                     {% if user.is_authenticated %}
+                    <a class="badge text-bg-primary bg-gradient" href="{% url 'watchlist' %}">Watchlist</a>
                     <a class="badge text-bg-primary bg-gradient" href="{% url 'logout' %}">Log Out</a>
                     {% else %}
                     <a class="badge text-bg-primary bg-gradient" href="{% url 'login' %}">Log In</a>
