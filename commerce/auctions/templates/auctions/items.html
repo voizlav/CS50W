@@ -59,12 +59,11 @@
             <form action="{% url 'watchlist_add' item_id=item.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit" 
-                        {% if watching %}disabled{% endif %}
                         style="width: 100%;"
                         class="btn badge pt-3 pb-3 rounded-pill text-dark text-opacity-75 bg-secondary bg-opacity-10 border-dark border-0">
                     <span class="fs-6">
                         {% if watching %}
-                        <i class="bi bi-eye-fill"></i> Added to watchlist
+                        <i class="bi bi-eye-slash"></i> Remove from watchlist
                         {% else %}
                         <i class="bi bi-eye"></i> Add to watchlist
                         {% endif %}
