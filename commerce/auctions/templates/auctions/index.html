@@ -6,6 +6,8 @@
     <div class="d-flex justify-content-center">
         {% if watchlist %}
         <h2>Watchlist</h2>
+        {% elif category %}
+        <h2>Active Listings for {{category|capfirst}}</h2>
         {% else %}
         <h2>Active Listings</h2>
         {% endif %}
