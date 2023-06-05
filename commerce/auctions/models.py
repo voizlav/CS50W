@@ -4,19 +4,20 @@ from django.utils import timezone, datetime_safe
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
+CATEGORIES = [
+    ("F", "fashion"),
+    ("T", "toys"),
+    ("E", "electronics"),
+    ("H", "home"),
+    ("O", "other"),
+]
+
+
 class User(AbstractUser):
     pass
 
 
 class Auction(models.Model):
-    CATEGORIES = [
-        ("F", "fashion"),
-        ("T", "toys"),
-        ("E", "electronics"),
-        ("H", "home"),
-        ("O", "other"),
-    ]
-
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="auction_creator"
     )
