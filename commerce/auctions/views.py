@@ -107,11 +107,18 @@ def items(request, item_id):
     all_bids = item.bids.all()
     bid = item.bids.latest("timestamp")
     all_comments = item.comment.all()
+    watching = item.watching_auction.filter(user=request.user).exists()
     messages.get_messages(request)
     return render(
         request,
         "auctions/items.html",
-        {"item": item, "bid": bid, "all_bids": all_bids, "all_comments": all_comments},
+        {
+            "item": item,
+            "bid": bid,
+            "all_bids": all_bids,
+            "all_comments": all_comments,
+            "watching": watching,
+        },
     )
 
 
