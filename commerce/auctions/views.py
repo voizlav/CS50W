@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.urls import reverse
 from django import forms
-from .models import Auction, User, Bids, Comments, Watchlist
+from .models import Auction, User, Bids, Comments, Watchlist, CATEGORIES
 
 
 class AuctionForm(forms.ModelForm):
