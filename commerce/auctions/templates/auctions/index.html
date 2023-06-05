@@ -4,7 +4,11 @@
 
 <div class="container pb-5">
     <div class="d-flex justify-content-center">
+        {% if watchlist %}
+        <h2>Watchlist</h2>
+        {% else %}
         <h2>Active Listings</h2>
+        {% endif %}
     </div>
     {% if all_listing %}
     <div class="row">
