@@ -13,7 +13,7 @@ from .models import Auction, User, Bids, Comments, Watchlist, CATEGORIES
 class AuctionForm(forms.ModelForm):
     class Meta:
         model = Auction
-        fields = ["title", "description", "starting_bid", "category", "hyperlink"]
+        fields = ["title", "description", "category", "hyperlink"]
 
 
 class BidForm(forms.Form):
