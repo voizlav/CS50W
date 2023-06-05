@@ -1,11 +1,15 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-<div class="container" style="max-width: 500px;">
-    <!-- TODO -->
-    <div class="col-md-6 d-flex flex-column">
+<div class="container" style="max-width: 400px;">
+    <div class="d-flex justify-content-center">
+        <h2>Categories</h2>
+    </div>
+    <div class="d-flex flex-column">
         {% for category in categories %}
-        <a href="#">{{category.1}}</a>
+        <a href="/category/{{category.1}}" class="btn badge mt-3 pt-3 pb-3 rounded-pill text-white bg-primary bg-gradient bg-opacity-75 border-0">
+            <span class="fs-5">{{category.1|capfirst}}</span> 
+        </a>
         {% endfor %}
     </div>
 </div>
