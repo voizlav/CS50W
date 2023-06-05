@@ -79,7 +79,8 @@ def register(request):
 def create(request):
     if request.method == "POST":
         form = AuctionForm(request.POST)
-        if form.is_valid():
+        bidForm = BidForm(request.POST)
+        if form.is_valid() and bidForm.is_valid():
             new_auction = Auction()
             new_auction.user = request.user
             new_auction.title = form.cleaned_data["title"]
@@ -91,8 +92,7 @@ def create(request):
             new_auction.save()
             bid = Bids()
             bid.user = request.user
-            if form.cleaned_data["starting_bid"]:
-                bid.amount = form.cleaned_data["starting_bid"]
+            bid.amount = bidForm.cleaned_data["bid_amount"]
             bid.auction = new_auction
             bid.save()
             return redirect("index")
