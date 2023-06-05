@@ -1,0 +1,12 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container" style="max-width: 500px;">
+    <!-- TODO -->
+    <div class="col-md-6 d-flex flex-column">
+        {% for category in categories %}
+        <a href="#">{{category.1}}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
