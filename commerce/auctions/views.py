@@ -107,7 +107,11 @@ def items(request, item_id):
     all_bids = item.bids.all()
     bid = item.bids.latest("timestamp")
     all_comments = item.comment.all()
-    watching = item.watching_auction.filter(user=request.user).exists()
+    watching = (
+        item.watching_auction.filter(user=request.user).exists()
+        if request.user.is_authenticated
+        else False
+    )
     messages.get_messages(request)
     return render(
         request,
