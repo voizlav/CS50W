@@ -98,7 +98,7 @@ def create(request):
             return redirect("index")
         msg = "Invalid form."
         messages.add_message(request, messages.WARNING, msg)
-        redirect("create")
+        return redirect("create")
     return render(request, "auctions/create.html", {"form": AuctionForm()})
 
 
