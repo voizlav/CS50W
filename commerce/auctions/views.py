@@ -234,5 +234,4 @@ def categories(request, name):
 
 
 def category(request):
-    # TODO
-    ...
+    return render(request, "auctions/category.html", {"categories": CATEGORIES})
