@@ -220,7 +220,7 @@ def watchlist_add(request, item_id):
 def watchlist(request):
     user = User.objects.get(username=request.user)
     watching = user.watching_user.all().values_list("auction", flat=True)
-    all_listing = Auction.objects.filter(pk__in=watching).annotate(
+    all_listing = Auction.objects.filter(pk__in=watching, active=True).annotate(
         bid=Max("bids__amount")
     )
     return render(
@@ -229,8 +229,17 @@ def watchlist(request):
 
 
 def categories(request, name):
-    # TODO
-    ...
+    for category in CATEGORIES:
+        if category[1] == name:
+            all_listing = Auction.objects.filter(
+                category=category[0], active=True
+            ).annotate(bid=Max("bids__amount"))
+            return render(
+                request,
+                "auctions/index.html",
+                {"all_listing": all_listing, "category": name},
+            )
+    return redirect("index")
 
 
 def category(request):
