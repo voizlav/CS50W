@@ -29,6 +29,7 @@
                 <div class="d-flex justify-content-around align-items-center pt-3 pb-3 mb-5 bg-gradient">
                     <a class="badge text-bg-primary bg-gradient" href="{% url 'index' %}">Active Listings</a>
                     <a class="badge text-bg-primary bg-gradient" href="{% url 'create' %}">Create Listing</a>
+                    <a class="badge text-bg-primary bg-gradient" href="{% url 'category' %}">Categories</a>
                     {% if user.is_authenticated %}
                     <a class="badge text-bg-primary bg-gradient" href="{% url 'watchlist' %}">Watchlist</a>
                     <a class="badge text-bg-primary bg-gradient" href="{% url 'logout' %}">Log Out</a>
