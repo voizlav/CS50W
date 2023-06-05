@@ -210,3 +210,13 @@ def watchlist_add(request, item_id):
         messages.add_message(request, messages.INFO, msg)
         return redirect("item", item_id=item_id)
     return redirect("item", item_id=item_id)
+
+
+@login_required
+def watchlist(request):
+    user = User.objects.get(username=request.user)
+    watching = user.watching_user.all().values_list("auction", flat=True)
+    all_listing = Auction.objects.filter(pk__in=watching).annotate(
+        bid=Max("bids__amount")
+    )
+    return render(request, "auctions/index.html", {"all_listing": all_listing})
