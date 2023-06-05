@@ -226,3 +226,13 @@ def watchlist(request):
     return render(
         request, "auctions/index.html", {"all_listing": all_listing, "watchlist": True}
     )
+
+
+def categories(request, name):
+    # TODO
+    ...
+
+
+def category(request):
+    # TODO
+    ...
