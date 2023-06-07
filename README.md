@@ -20,7 +20,7 @@ This course picks up where CS50x leaves off, diving more deeply into the design 
 
 ### Week 4 *SQL, Models, and Migrations*
 
-- [ ] [Project 2: Commerce][3]
+- [x] [Project 2: Commerce][3]
 
 ### Week 5 *JavaScript*
 
