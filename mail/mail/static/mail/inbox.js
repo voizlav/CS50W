@@ -45,3 +45,9 @@ function load_mailbox(mailbox) {
     mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
   }</h3>`;
 }
+
+function send_email() {
+  const composeRecipients = document.querySelector("#compose-recipients");
+  const composeSubject = document.querySelector("#compose-subject");
+  const composeBody = document.querySelector("#compose-body");
+}
