@@ -70,19 +70,20 @@ const load_mails = (mailbox) => {
           //TODO
         }
         if (mailbox === "archive" && email.archived) {
-          // TODO
-          console.log(email);
-        } else {
-          // TODO
           mail_sender.innerText = email.sender;
           mail_subject.innerText = email.subject;
           mail_timestamp.innerText = email.timestamp;
-          list_mail_item.appendChild(mail_sender);
-          mail_sender.appendChild(mail_subject);
-          list_mail_item.appendChild(mail_timestamp);
-          list_mails.appendChild(list_mail_item);
+          console.log(email);
+        } else {
+          mail_sender.innerText = email.sender;
+          mail_subject.innerText = email.subject;
+          mail_timestamp.innerText = email.timestamp;
           console.log(email);
         }
+        list_mail_item.appendChild(mail_sender);
+        mail_sender.appendChild(mail_subject);
+        list_mail_item.appendChild(mail_timestamp);
+        list_mails.appendChild(list_mail_item);
       }),
     );
 };
