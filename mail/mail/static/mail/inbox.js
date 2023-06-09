@@ -47,9 +47,21 @@ const send_email = () => {
     body: composeBody.value,
   });
 
-  // TODO show message to user
   fetch("/emails", { method: "POST", body: body })
     .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+    .then((data) => display_message(...Object.entries(data)[0]));
+};
+
+const display_message = (message_type, message) => {
+  const info = document.querySelector("#display-info");
+
+  info.classList.add("alert");
+  info.setAttribute("role", "alert");
+  info.textContent = message;
+  if (message_type === "message") {
+    info.classList.add("alert-primary");
+  }
+  if (message_type === "error") {
+    info.classList.add("alert-danger");
+  }
 };
