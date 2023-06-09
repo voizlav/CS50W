@@ -38,15 +38,27 @@ const load_mailbox = (mailbox) => {
   document.querySelector("#emails-view").innerHTML = `<h3>${
     mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
   }</h3>`;
+
   load_mails(mailbox);
 };
 
 const load_mails = (mailbox) => {
+  const emails_view = document.querySelector("#emails-view");
+  const list_mails = document.createElement("ul");
+  list_mails.className = "list-group";
+  emails_view.appendChild(list_mails);
+
   fetch(`/emails/${mailbox}`)
     .then((res) => res.json())
     .then((data) =>
       data.forEach((email) => {
-        display(email);
+        if (mailbox === "archive" && email.archived) {
+          // TODO
+          console.log(email);
+        } else {
+          // TODO
+          console.log(email);
+        }
       }),
     );
 };
