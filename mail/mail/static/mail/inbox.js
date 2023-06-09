@@ -63,6 +63,8 @@ const load_mails = (mailbox) => {
           "align-items-start",
         );
         mail_sender.classList.add("ms-2", "me-auto");
+        mail_subject.classList.add("fw-bold");
+
         if (mailbox === "archive" && email.archived) {
           // TODO
           console.log(email);
