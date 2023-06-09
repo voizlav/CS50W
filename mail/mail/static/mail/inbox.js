@@ -38,6 +38,17 @@ const load_mailbox = (mailbox) => {
   document.querySelector("#emails-view").innerHTML = `<h3>${
     mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
   }</h3>`;
+  load_mails(mailbox);
+};
+
+const load_mails = (mailbox) => {
+  fetch(`/emails/${mailbox}`)
+    .then((res) => res.json())
+    .then((data) =>
+      data.forEach((email) => {
+        display(email);
+      }),
+    );
 };
 
 const send_email = () => {
