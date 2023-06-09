@@ -50,4 +50,10 @@ function send_email() {
   const composeRecipients = document.querySelector("#compose-recipients");
   const composeSubject = document.querySelector("#compose-subject");
   const composeBody = document.querySelector("#compose-body");
+
+  const body = JSON.stringify({
+    recipients: composeRecipients.value,
+    subject: composeSubject.value,
+    body: composeBody.value,
+  });
 }
