@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   // Use buttons to toggle between views
   document.querySelector("#inbox").onclick = () => load_mailbox("inbox");
   document.querySelector("#sent").onclick = () => load_mailbox("sent");
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   load_mailbox("inbox");
 });
 
-function compose_email() {
+const compose_email = () => {
   // Show compose view and hide other views
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "block";
@@ -23,9 +23,9 @@ function compose_email() {
   document.querySelector("#compose-recipients").value = "";
   document.querySelector("#compose-subject").value = "";
   document.querySelector("#compose-body").value = "";
-}
+};
 
-function load_mailbox(mailbox) {
+const load_mailbox = (mailbox) => {
   // Show the mailbox and hide other views
   document.querySelector("#emails-view").style.display = "block";
   document.querySelector("#compose-view").style.display = "none";
@@ -34,9 +34,9 @@ function load_mailbox(mailbox) {
   document.querySelector("#emails-view").innerHTML = `<h3>${
     mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
   }</h3>`;
-}
+};
 
-function send_email() {
+const send_email = () => {
   const composeRecipients = document.querySelector("#compose-recipients");
   const composeSubject = document.querySelector("#compose-subject");
   const composeBody = document.querySelector("#compose-body");
@@ -52,4 +52,4 @@ function send_email() {
     .then((res) => res.json())
     .then((data) => console.log(data))
     .catch((err) => console.error(err));
-}
+};
