@@ -56,4 +56,10 @@ function send_email() {
     subject: composeSubject.value,
     body: composeBody.value,
   });
+
+  // TODO show message to user
+  fetch("/emails", { method: "POST", body: body })
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 }
