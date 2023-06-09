@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const compose_email = () => {
+  remove_message();
+
   // Show compose view and hide other views
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "block";
@@ -26,6 +28,8 @@ const compose_email = () => {
 };
 
 const load_mailbox = (mailbox) => {
+  remove_message();
+
   // Show the mailbox and hide other views
   document.querySelector("#emails-view").style.display = "block";
   document.querySelector("#compose-view").style.display = "none";
@@ -64,4 +68,12 @@ const display_message = (message_type, message) => {
   if (message_type === "error") {
     info.classList.add("alert-danger");
   }
+};
+
+const remove_message = () => {
+  const info = document.querySelector("#display-info");
+
+  info.textContent = "";
+  info.removeAttribute("class");
+  info.removeAttribute("role");
 };
