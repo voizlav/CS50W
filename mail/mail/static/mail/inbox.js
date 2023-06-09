@@ -52,6 +52,13 @@ const load_mails = (mailbox) => {
     .then((res) => res.json())
     .then((data) =>
       data.forEach((email) => {
+        const list_mail_item = document.createElement("li");
+        list_mail_item.classList.add(
+          "list-group-item",
+          "d-flex",
+          "justify-content-between",
+          "align-items-start",
+        );
         if (mailbox === "archive" && email.archived) {
           // TODO
           console.log(email);
