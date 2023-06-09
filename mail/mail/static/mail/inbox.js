@@ -64,6 +64,7 @@ const load_mails = (mailbox) => {
         );
         mail_sender.classList.add("ms-2", "me-auto");
         mail_subject.classList.add("fw-bold");
+        mail_timestamp.classList.add("badge", "bg-primary", "rounded-pill");
 
         if (mailbox === "archive" && email.archived) {
           // TODO
