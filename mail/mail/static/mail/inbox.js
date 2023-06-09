@@ -64,13 +64,23 @@ const load_mails = (mailbox) => {
         );
         mail_sender.classList.add("ms-2", "me-auto");
         mail_subject.classList.add("fw-bold");
-        mail_timestamp.classList.add("badge", "bg-primary", "rounded-pill");
-
+        if (email.read) {
+          mail_timestamp.classList.add("badge", "bg-primary", "rounded-pill");
+        } else {
+          //TODO
+        }
         if (mailbox === "archive" && email.archived) {
           // TODO
           console.log(email);
         } else {
           // TODO
+          mail_sender.innerText = email.sender;
+          mail_subject.innerText = email.subject;
+          mail_timestamp.innerText = email.timestamp;
+          list_mail_item.appendChild(mail_sender);
+          mail_sender.appendChild(mail_subject);
+          list_mail_item.appendChild(mail_timestamp);
+          list_mails.appendChild(list_mail_item);
           console.log(email);
         }
       }),
