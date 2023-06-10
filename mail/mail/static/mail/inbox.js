@@ -61,14 +61,23 @@ const load_mails = (mailbox) => {
           "d-flex",
           "justify-content-between",
           "align-items-start",
+          email.read ? "bg-secondary" : "bg-white",
+          email.read ? "bg-opacity-10" : "bg-opacity",
+        );
+        mail_timestamp.classList.add(
+          "badge",
+          "rounded-pill",
+          "bg-opacity-75",
+          email.read ? "bg-secondary" : "bg-primary",
         );
         mail_sender.classList.add("ms-2", "me-auto");
-        mail_subject.classList.add("fw-bold");
-        if (email.read) {
-          mail_timestamp.classList.add("badge", "bg-primary", "rounded-pill");
-        } else {
-          //TODO
-        }
+        mail_subject.classList.add(
+          "fw-bold",
+          email.read ? "text-muted" : "text",
+        );
+        // TODO
+        // list_mail_item.onclick = () => console.log(`/emails/${email.id}`);
+
         if (mailbox === "archive" && email.archived) {
           mail_sender.innerText = email.sender;
           mail_subject.innerText = email.subject;
