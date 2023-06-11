@@ -99,18 +99,26 @@ const display_mail = (email_id) => {
   // TODO
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "none";
-  const mail = document.querySelector("email-view");
-  const card = document.createElement("div");
-  const card_header = document.createElement("div");
-  const card_body = document.createElement("div");
-  const card_title = document.createElement("div");
-  const card_text = document.createElement("div");
-  const reply = document.createElement("a");
 
-  console.log(email_id);
   fetch(`/emails/${email_id}`)
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      console.log(data);
+      const mail = document.querySelector("email-view");
+      const card = document.createElement("div");
+      const card_header = document.createElement("div");
+      const card_body = document.createElement("div");
+      const card_title = document.createElement("h5");
+      const card_text = document.createElement("p");
+      const reply = document.createElement("a");
+
+      card.classList("card");
+      card_body.classList("card-body");
+      card_header.classList("card-header");
+      card_title.classList("card-title");
+      card_text.classList("card-text");
+      reply.classList("btn", "btn-primary");
+    });
 };
 
 const send_email = () => {
