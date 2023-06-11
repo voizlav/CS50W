@@ -110,6 +110,8 @@ const display_mail = (email_id) => {
       const card_body = document.createElement("div");
       const card_title = document.createElement("h5");
       const card_text = document.createElement("p");
+      const card_footer = document.createElement("div");
+      const timestamp = document.createElement("p");
       const reply = document.createElement("a");
 
       main_card.classList.add("card");
