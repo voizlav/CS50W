@@ -144,12 +144,21 @@ const display_mail = (email_id) => {
       main_card.appendChild(card_footer);
       mail.appendChild(main_card);
       mail.appendChild(reply);
+
+      mark_email_as_read(email_id);
     });
 };
 
 const remove_mail = () => {
   const mail = document.querySelector("#email-view");
   mail.innerHTML = "";
+};
+
+const mark_email_as_read = (email_id) => {
+  fetch(`/emails/${email_id}`, {
+    method: "PUT",
+    body: JSON.stringify({ read: true }),
+  });
 };
 
 const send_email = () => {
