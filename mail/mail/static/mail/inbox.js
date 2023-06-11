@@ -145,6 +145,11 @@ const display_mail = (email_id) => {
     });
 };
 
+const remove_mail = () => {
+  const mail = document.querySelector("#email-view");
+  mail.innerHTML = "";
+};
+
 const send_email = () => {
   const composeRecipients = document.querySelector("#compose-recipients");
   const composeSubject = document.querySelector("#compose-subject");
