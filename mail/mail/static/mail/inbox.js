@@ -96,21 +96,18 @@ const load_mails = (mailbox) => {
 };
 
 const display_mail = (email_id) => {
-  // TODO
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "none";
+  const mail = document.querySelector("#email-view");
 
   fetch(`/emails/${email_id}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      const mail = document.querySelector("email-view");
       const main_card = document.createElement("div");
       const card_header = document.createElement("div");
       const from_to = document.createElement("p");
       const card_body = document.createElement("div");
       const card_title = document.createElement("h5");
-
       const card_footer = document.createElement("div");
       const timestamp = document.createElement("p");
       const reply = document.createElement("a");
@@ -120,15 +117,31 @@ const display_mail = (email_id) => {
       card_header.classList.add("card-header");
       from_to.classList.add("card-text", "text-muted");
       card_title.classList.add("card-title");
-      card_text.classList.add("card-text");
+
       card_footer.classList.add("card-footer", "bg-white");
       timestamp.classList.add("card-text", "text-muted");
-      reply.classList.add("btn", "btn-primary");
+      reply.classList.add("btn", "btn-primary", "btn-sm", "mt-3");
 
       from_to.textContent = `From ${data.sender} `;
       from_to.textContent += `to ${data.recipients.join(", ")}`;
       card_title.textContent = data.subject;
       timestamp.textContent = data.timestamp;
+      reply.textContent = "Reply";
+
+      card_header.appendChild(from_to);
+      main_card.appendChild(card_header);
+      card_body.appendChild(card_title);
+      data.body.split("\n").forEach((line) => {
+        const card_text = document.createElement("p");
+        card_text.classList.add("card-text");
+        card_text.textContent = line;
+        card_body.appendChild(card_text);
+      });
+      main_card.appendChild(card_body);
+      card_footer.appendChild(timestamp);
+      main_card.appendChild(card_footer);
+      mail.appendChild(main_card);
+      mail.appendChild(reply);
     });
 };
 
