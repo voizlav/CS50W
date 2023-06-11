@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const compose_email = () => {
   remove_message();
+  remove_display_email();
 
   // Show compose view and hide other views
   document.querySelector("#emails-view").style.display = "none";
@@ -29,7 +30,7 @@ const compose_email = () => {
 
 const load_mailbox = (mailbox) => {
   remove_message();
-  remove_email();
+  remove_display_email();
 
   // Show the mailbox and hide other views
   document.querySelector("#emails-view").style.display = "block";
@@ -45,19 +46,19 @@ const load_mailbox = (mailbox) => {
 
 const load_emails = (mailbox) => {
   const emails_view = document.querySelector("#emails-view");
-  const list_mails = document.createElement("ul");
-  list_mails.className = "list-group";
-  emails_view.appendChild(list_mails);
+  const list_emails = document.createElement("ul");
+  list_emails.className = "list-group";
+  emails_view.appendChild(list_emails);
 
   fetch(`/emails/${mailbox}`)
     .then((res) => res.json())
     .then((data) =>
       data.forEach((email) => {
-        const list_mail_item = document.createElement("li");
-        const mail_sender = document.createElement("div");
-        const mail_subject = document.createElement("div");
-        const mail_timestamp = document.createElement("span");
-        list_mail_item.classList.add(
+        const list_email_item = document.createElement("li");
+        const email_sender = document.createElement("div");
+        const email_subject = document.createElement("div");
+        const email_timestamp = document.createElement("span");
+        list_email_item.classList.add(
           "list-group-item",
           "d-flex",
           "justify-content-between",
@@ -65,33 +66,33 @@ const load_emails = (mailbox) => {
           email.read ? "bg-secondary" : "bg-white",
           email.read ? "bg-opacity-10" : "bg-opacity",
         );
-        mail_timestamp.classList.add(
+        email_timestamp.classList.add(
           "badge",
           "rounded-pill",
           "bg-opacity-75",
           email.read ? "bg-secondary" : "bg-primary",
         );
-        mail_sender.classList.add("ms-2", "me-auto");
-        mail_subject.classList.add(
+        email_sender.classList.add("ms-2", "me-auto");
+        email_subject.classList.add(
           "fw-bold",
           email.read ? "text-muted" : "text",
         );
 
         if (mailbox === "archive" && email.archived) {
-          mail_sender.innerText = email.sender;
-          mail_subject.innerText = email.subject;
-          mail_timestamp.innerText = email.timestamp;
+          email_sender.innerText = email.sender;
+          email_subject.innerText = email.subject;
+          email_timestamp.innerText = email.timestamp;
         } else {
-          mail_sender.innerText = email.sender;
-          mail_subject.innerText = email.subject;
-          mail_timestamp.innerText = email.timestamp;
+          email_sender.innerText = email.sender;
+          email_subject.innerText = email.subject;
+          email_timestamp.innerText = email.timestamp;
         }
-        list_mail_item.appendChild(mail_sender);
-        mail_sender.appendChild(mail_subject);
-        list_mail_item.appendChild(mail_timestamp);
-        list_mails.appendChild(list_mail_item);
+        list_email_item.appendChild(email_sender);
+        email_sender.appendChild(email_subject);
+        list_email_item.appendChild(email_timestamp);
+        list_emails.appendChild(list_email_item);
 
-        list_mail_item.onclick = () => display_email(email.id);
+        list_email_item.onclick = () => display_email(email.id);
       }),
     );
 };
@@ -100,7 +101,7 @@ const display_email = (email_id) => {
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "none";
   const mail = document.querySelector("#email-view");
-  remove_email();
+  remove_display_email();
 
   fetch(`/emails/${email_id}`)
     .then((res) => res.json())
@@ -149,9 +150,9 @@ const display_email = (email_id) => {
     });
 };
 
-const remove_email = () => {
-  const mail = document.querySelector("#email-view");
-  mail.innerHTML = "";
+const remove_display_email = () => {
+  const email = document.querySelector("#email-view");
+  email.innerHTML = "";
 };
 
 const mark_email_as_read = (email_id) => {
