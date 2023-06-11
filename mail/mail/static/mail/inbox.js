@@ -57,6 +57,7 @@ const load_mails = (mailbox) => {
         const mail_subject = document.createElement("div");
         const mail_timestamp = document.createElement("span");
         list_mail_item.classList.add(
+          "email-view",
           "list-group-item",
           "d-flex",
           "justify-content-between",
@@ -76,7 +77,7 @@ const load_mails = (mailbox) => {
           email.read ? "text-muted" : "text",
         );
         // TODO
-        // list_mail_item.onclick = () => console.log(`/emails/${email.id}`);
+        list_mail_item.onclick = () => console.log(`/emails/${email.id}`);
 
         if (mailbox === "archive" && email.archived) {
           mail_sender.innerText = email.sender;
