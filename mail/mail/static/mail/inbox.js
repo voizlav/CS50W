@@ -57,7 +57,6 @@ const load_mails = (mailbox) => {
         const mail_subject = document.createElement("div");
         const mail_timestamp = document.createElement("span");
         list_mail_item.classList.add(
-          "email-view",
           "list-group-item",
           "d-flex",
           "justify-content-between",
@@ -77,8 +76,6 @@ const load_mails = (mailbox) => {
           email.read ? "text-muted" : "text",
         );
 
-        list_mail_item.onclick = () => display_mail(email.id);
-
         if (mailbox === "archive" && email.archived) {
           mail_sender.innerText = email.sender;
           mail_subject.innerText = email.subject;
@@ -92,8 +89,28 @@ const load_mails = (mailbox) => {
         mail_sender.appendChild(mail_subject);
         list_mail_item.appendChild(mail_timestamp);
         list_mails.appendChild(list_mail_item);
+
+        list_mail_item.onclick = () => display_mail(email.id);
       }),
     );
+};
+
+const display_mail = (email_id) => {
+  // TODO
+  document.querySelector("#emails-view").style.display = "none";
+  document.querySelector("#compose-view").style.display = "none";
+  const mail = document.querySelector("email-view");
+  const card = document.createElement("div");
+  const card_header = document.createElement("div");
+  const card_body = document.createElement("div");
+  const card_title = document.createElement("div");
+  const card_text = document.createElement("div");
+  const reply = document.createElement("a");
+
+  console.log(email_id);
+  fetch(`/emails/${email_id}`)
+    .then((res) => res.json())
+    .then((data) => console.log(data));
 };
 
 const send_email = () => {
@@ -132,9 +149,4 @@ const remove_message = () => {
   info.textContent = "";
   info.removeAttribute("class");
   info.removeAttribute("role");
-};
-
-const display_mail = (id) => {
-  // TODO
-  console.log("/emails/", id);
 };
