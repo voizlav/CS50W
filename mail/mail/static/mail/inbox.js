@@ -29,6 +29,7 @@ const compose_email = () => {
 
 const load_mailbox = (mailbox) => {
   remove_message();
+  remove_mail();
 
   // Show the mailbox and hide other views
   document.querySelector("#emails-view").style.display = "block";
@@ -99,6 +100,7 @@ const display_mail = (email_id) => {
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "none";
   const mail = document.querySelector("#email-view");
+  remove_mail();
 
   fetch(`/emails/${email_id}`)
     .then((res) => res.json())
