@@ -105,19 +105,19 @@ const display_mail = (email_id) => {
     .then((data) => {
       console.log(data);
       const mail = document.querySelector("email-view");
-      const card = document.createElement("div");
+      const main_card = document.createElement("div");
       const card_header = document.createElement("div");
       const card_body = document.createElement("div");
       const card_title = document.createElement("h5");
       const card_text = document.createElement("p");
       const reply = document.createElement("a");
 
-      card.classList("card");
-      card_body.classList("card-body");
-      card_header.classList("card-header");
-      card_title.classList("card-title");
-      card_text.classList("card-text");
-      reply.classList("btn", "btn-primary");
+      main_card.classList.add("card");
+      card_body.classList.add("card-body");
+      card_header.classList.add("card-header");
+      card_title.classList.add("card-title");
+      card_text.classList.add("card-text");
+      reply.classList.add("btn", "btn-primary");
     });
 };
 
