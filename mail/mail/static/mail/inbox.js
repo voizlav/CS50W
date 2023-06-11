@@ -76,19 +76,17 @@ const load_mails = (mailbox) => {
           "fw-bold",
           email.read ? "text-muted" : "text",
         );
-        // TODO
-        list_mail_item.onclick = () => console.log(`/emails/${email.id}`);
+
+        list_mail_item.onclick = () => display_mail(email.id);
 
         if (mailbox === "archive" && email.archived) {
           mail_sender.innerText = email.sender;
           mail_subject.innerText = email.subject;
           mail_timestamp.innerText = email.timestamp;
-          console.log(email);
         } else {
           mail_sender.innerText = email.sender;
           mail_subject.innerText = email.subject;
           mail_timestamp.innerText = email.timestamp;
-          console.log(email);
         }
         list_mail_item.appendChild(mail_sender);
         mail_sender.appendChild(mail_subject);
@@ -134,4 +132,9 @@ const remove_message = () => {
   info.textContent = "";
   info.removeAttribute("class");
   info.removeAttribute("role");
+};
+
+const display_mail = (id) => {
+  // TODO
+  console.log("/emails/", id);
 };
