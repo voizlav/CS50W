@@ -29,7 +29,7 @@ const compose_email = () => {
 
 const load_mailbox = (mailbox) => {
   remove_message();
-  remove_mail();
+  remove_email();
 
   // Show the mailbox and hide other views
   document.querySelector("#emails-view").style.display = "block";
@@ -40,10 +40,10 @@ const load_mailbox = (mailbox) => {
     mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
   }</h3>`;
 
-  load_mails(mailbox);
+  load_emails(mailbox);
 };
 
-const load_mails = (mailbox) => {
+const load_emails = (mailbox) => {
   const emails_view = document.querySelector("#emails-view");
   const list_mails = document.createElement("ul");
   list_mails.className = "list-group";
@@ -91,16 +91,16 @@ const load_mails = (mailbox) => {
         list_mail_item.appendChild(mail_timestamp);
         list_mails.appendChild(list_mail_item);
 
-        list_mail_item.onclick = () => display_mail(email.id);
+        list_mail_item.onclick = () => display_email(email.id);
       }),
     );
 };
 
-const display_mail = (email_id) => {
+const display_email = (email_id) => {
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "none";
   const mail = document.querySelector("#email-view");
-  remove_mail();
+  remove_email();
 
   fetch(`/emails/${email_id}`)
     .then((res) => res.json())
@@ -149,7 +149,7 @@ const display_mail = (email_id) => {
     });
 };
 
-const remove_mail = () => {
+const remove_email = () => {
   const mail = document.querySelector("#email-view");
   mail.innerHTML = "";
 };
