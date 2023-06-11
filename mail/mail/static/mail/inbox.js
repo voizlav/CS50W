@@ -110,7 +110,7 @@ const display_mail = (email_id) => {
       const from_to = document.createElement("p");
       const card_body = document.createElement("div");
       const card_title = document.createElement("h5");
-      const card_text = document.createElement("p");
+
       const card_footer = document.createElement("div");
       const timestamp = document.createElement("p");
       const reply = document.createElement("a");
@@ -124,6 +124,11 @@ const display_mail = (email_id) => {
       card_footer.classList.add("card-footer", "bg-white");
       timestamp.classList.add("card-text", "text-muted");
       reply.classList.add("btn", "btn-primary");
+
+      from_to.textContent = `From ${data.sender} `;
+      from_to.textContent += `to ${data.recipients.join(", ")}`;
+      card_title.textContent = data.subject;
+      timestamp.textContent = data.timestamp;
     });
 };
 
