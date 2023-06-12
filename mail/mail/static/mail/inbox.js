@@ -125,14 +125,12 @@ const display_email = (mailbox, email_id) => {
       card_footer.classList.add("card-footer", "bg-white");
       timestamp.classList.add("card-text", "text-muted");
       reply.classList.add("btn", "btn-primary", "btn-sm", "mt-3");
-      archive.classList.add("btn", "btn-primary", "btn-sm", "mt-3", "ms-3");
 
       from_to.textContent = `From ${data.sender} `;
       from_to.textContent += `to ${data.recipients.join(", ")}`;
       card_title.textContent = data.subject;
       timestamp.textContent = data.timestamp;
       reply.textContent = "Reply";
-      archive.textContent = data.archived ? "Unarchive" : "Archive";
 
       card_header.appendChild(from_to);
       main_card.appendChild(card_header);
@@ -150,11 +148,21 @@ const display_email = (mailbox, email_id) => {
       mail.appendChild(reply);
 
       if (mailbox !== "sent") {
+        archive.classList.add("btn", "btn-primary", "btn-sm", "mt-3", "ms-3");
+        archive.textContent = data.archived ? "Unarchive" : "Archive";
         mail.appendChild(archive);
+        archive.onclick = () => archive_mail(data.archived, email_id);
       }
 
       mark_email_as_read(email_id);
     });
+};
+
+const archive_mail = (is_archive, email_id) => {
+  fetch(`/emails/${email_id}`, {
+    method: "PUT",
+    body: JSON.stringify({ archived: is_archive ? false : true }),
+  }).then(location.reload());
 };
 
 const remove_display_email = () => {
