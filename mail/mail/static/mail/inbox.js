@@ -146,7 +146,7 @@ const display_email = (mailbox, email_id) => {
       main_card.appendChild(card_footer);
       mail.appendChild(main_card);
       mail.appendChild(reply);
-
+      reply.onclick = () => reply_email(email_id);
       if (mailbox !== "sent") {
         archive.classList.add("btn", "btn-primary", "btn-sm", "mt-3", "ms-3");
         archive.textContent = data.archived ? "Unarchive" : "Archive";
