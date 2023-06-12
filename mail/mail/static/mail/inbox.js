@@ -92,20 +92,20 @@ const load_emails = (mailbox) => {
         list_email_item.appendChild(email_timestamp);
         list_emails.appendChild(list_email_item);
 
-        list_email_item.onclick = () => display_email(email.id);
+        list_email_item.onclick = () => display_email(mailbox, email.id);
       }),
     );
 };
 
-const display_email = (email_id) => {
+const display_email = (mailbox, email_id) => {
+  remove_display_email();
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "none";
-  const mail = document.querySelector("#email-view");
-  remove_display_email();
 
   fetch(`/emails/${email_id}`)
     .then((res) => res.json())
     .then((data) => {
+      const mail = document.querySelector("#email-view");
       const main_card = document.createElement("div");
       const card_header = document.createElement("div");
       const from_to = document.createElement("p");
@@ -114,6 +114,7 @@ const display_email = (email_id) => {
       const card_footer = document.createElement("div");
       const timestamp = document.createElement("p");
       const reply = document.createElement("a");
+      const archive = document.createElement("a");
 
       main_card.classList.add("card");
       card_body.classList.add("card-body");
@@ -124,12 +125,14 @@ const display_email = (email_id) => {
       card_footer.classList.add("card-footer", "bg-white");
       timestamp.classList.add("card-text", "text-muted");
       reply.classList.add("btn", "btn-primary", "btn-sm", "mt-3");
+      archive.classList.add("btn", "btn-primary", "btn-sm", "mt-3", "ms-3");
 
       from_to.textContent = `From ${data.sender} `;
       from_to.textContent += `to ${data.recipients.join(", ")}`;
       card_title.textContent = data.subject;
       timestamp.textContent = data.timestamp;
       reply.textContent = "Reply";
+      archive.textContent = data.archived ? "Unarchive" : "Archive";
 
       card_header.appendChild(from_to);
       main_card.appendChild(card_header);
@@ -145,6 +148,10 @@ const display_email = (email_id) => {
       main_card.appendChild(card_footer);
       mail.appendChild(main_card);
       mail.appendChild(reply);
+
+      if (mailbox !== "sent") {
+        mail.appendChild(archive);
+      }
 
       mark_email_as_read(email_id);
     });
