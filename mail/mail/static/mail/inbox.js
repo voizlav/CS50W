@@ -28,6 +28,24 @@ const compose_email = () => {
   document.querySelector("#compose-body").value = "";
 };
 
+const reply_email = (email_id) => {
+  remove_message();
+  remove_display_email();
+
+  document.querySelector("#emails-view").style.display = "none";
+  document.querySelector("#compose-view").style.display = "block";
+
+  fetch(`/emails/${email_id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      document.querySelector("#compose-recipients").value = data.sender;
+      document.querySelector("#compose-subject").value = data.subject;
+      document.querySelector(
+        "#compose-body",
+      ).value = `"${data.timestamp} ${data.sender} wrote:\n${data.body}"`;
+    });
+};
+
 const load_mailbox = (mailbox) => {
   remove_message();
   remove_display_email();
