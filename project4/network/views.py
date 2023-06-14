@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
+from django.views.decorators.csrf import csrf_exempt
 from .models import User
 
 
@@ -63,3 +63,21 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+
+import json
+
+
+# @login_required
+@csrf_exempt
+def newpost(request):
+    if request.method != "POST":
+        return JsonResponse({"erorr": "POST request required."}, status=400)
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "JSON data required."})
+
+    # TODO implement actual business logic
+
+    return JsonResponse(data)
