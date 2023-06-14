@@ -76,7 +76,8 @@ def newpost(request):
         data = json.loads(request.body)
         if not data["content"]:
             return JsonResponse({"error": "Empty post."}, status=400)
-
+        if len(data["content"]) > 255:
+            return JsonResponse({"error": "Post is too long."}, status=400)
     except json.JSONDecodeError:
         return JsonResponse({"error": "JSON data required."}, status=400)
     except KeyError:
