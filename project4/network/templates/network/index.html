@@ -2,9 +2,16 @@
 
 {% block body %}
     <div class="container">
-        <div class="form-floating">
-            <textarea class="form-control" placeholder="What's happening?" id="floatingTextarea"></textarea>
-            <label for="floatingTextarea">What's happening?</label>
-        </div>
+        <h2>All Posts</h2>
+        {% if user.is_authenticated %}
+            <div class="border p-3">
+                <h4>New Post</h4>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="What's happening?" id="newPost" style="height: 100px"></textarea>
+                    <label for="newPost">What's happening?</label>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm mt-3" id="newPostButton">Post</button>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
