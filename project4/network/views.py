@@ -74,15 +74,15 @@ def newpost(request):
         return JsonResponse({"error": "POST request required."}, status=400)
     try:
         data = json.loads(request.body)
-        if not data["content"]:
+        content = data.get("content", "")
+        if not content:
             return JsonResponse({"error": "Empty post."}, status=400)
-        if len(data["content"]) > 255:
+        if len(content) > 255:
             return JsonResponse({"error": "Post is too long."}, status=400)
     except json.JSONDecodeError:
         return JsonResponse({"error": "JSON data required."}, status=400)
-    except KeyError:
-        return JsonResponse({"error": "Invalid JSON data request."}, status=400)
-
-    # TODO implement actual business logic
-
-    return JsonResponse(data)
+    post = Post()
+    post.user = request.user
+    post.content = content
+    post.save()
+    return JsonResponse({"message": "Post added successfully."}, status=201)
