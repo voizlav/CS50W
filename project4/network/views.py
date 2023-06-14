@@ -67,15 +67,20 @@ def register(request):
         return render(request, "network/register.html")
 
 
-@login_required
+# @login_required
 @csrf_exempt
 def newpost(request):
     if request.method != "POST":
         return JsonResponse({"erorr": "POST request required."}, status=400)
     try:
         data = json.loads(request.body)
+        if not data["content"]:
+            return JsonResponse({"error": "Empty post."}, status=400)
+
     except json.JSONDecodeError:
-        return JsonResponse({"error": "JSON data required."})
+        return JsonResponse({"error": "JSON data required."}, status=400)
+    except KeyError:
+        return JsonResponse({"error": "Invalid JSON data request."}, status=400)
 
     # TODO implement actual business logic
 
