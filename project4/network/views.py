@@ -67,7 +67,7 @@ def register(request):
         return render(request, "network/register.html")
 
 
-# @login_required
+@login_required
 @csrf_exempt
 def newpost(request):
     if request.method != "POST":
@@ -86,3 +86,10 @@ def newpost(request):
     post.content = content
     post.save()
     return JsonResponse({"message": "Post added successfully."}, status=201)
+
+
+def posts(request):
+    if request.method != "GET":
+        return JsonResponse({"error": "GET request required."}, status=400)
+    result = [post.serialize() for post in Post.objects.all()]
+    return JsonResponse(result, safe=False)
