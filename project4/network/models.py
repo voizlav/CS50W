@@ -11,3 +11,11 @@ class Post(models.Model):
     content = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
     # TODO likes
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user": self.user.username,
+            "content": self.content,
+            "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
+        }
