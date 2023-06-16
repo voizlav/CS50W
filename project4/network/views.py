@@ -91,5 +91,5 @@ def newpost(request):
 def posts(request):
     if request.method != "GET":
         return JsonResponse({"error": "GET request required."}, status=400)
-    result = [post.serialize() for post in Post.objects.all()]
+    result = list(reversed([post.serialize() for post in Post.objects.all()]))
     return JsonResponse(result, safe=False)
