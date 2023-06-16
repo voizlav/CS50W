@@ -51,7 +51,14 @@ const displayPosts = () => {
         const postContent = document.createElement("p");
         postContent.classList.add("mb-1", "text-break");
         postContent.innerText = post.content;
+
+        listGroupPost.appendChild(divWrapper);
+        divWrapper.appendChild(postHeading);
+        divWrapper.appendChild(timestamp);
+        listGroupPost.appendChild(postContent);
+        listOfPosts.appendChild(listGroupPost);
       });
+      allPosts.appendChild(listOfPosts);
     });
 };
 
