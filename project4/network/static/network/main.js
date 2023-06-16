@@ -1,6 +1,7 @@
 const init = () => {
   document.addEventListener("DOMContentLoaded", () => {
     createNewPost();
+    displayPosts();
   });
 };
 
@@ -14,14 +15,17 @@ const createNewPost = () => {
       body: JSON.stringify({ content: newPost.value }),
     })
       .then((res) => res.json())
-      .then((data) => displayMessage(...Object.entries(data)[0]));
+      .then((data) => data.message && (newPost.value = ""));
   };
 };
 
-const displayMessage = (type, message) => {
-  /* TODO */
-  console.log("Type:", type);
-  console.log("Msg:", message);
+const displayPosts = () => {
+  const allPosts = document.querySelector("#allPosts");
+  fetch("/posts")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
 };
 
 init();
