@@ -35,6 +35,13 @@ const displayPosts = () => {
           "list-group-item",
           "list-group-item-action",
         );
+        const divWrapper = document.createElement("div");
+        divWrapper.classList.add(
+          "d-flex",
+          "w-100",
+          "justify-content-between",
+          "pb-3",
+        );
       });
     });
 };
