@@ -48,6 +48,9 @@ const displayPosts = () => {
         const timestamp = document.createElement("small");
         timestamp.classList.add("text-muted");
         timestamp.innerText = post.timestamp;
+        const postContent = document.createElement("p");
+        postContent.classList.add("mb-1", "text-break");
+        postContent.innerText = post.content;
       });
     });
 };
