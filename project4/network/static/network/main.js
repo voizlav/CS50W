@@ -25,11 +25,9 @@ const displayPosts = () => {
   fetch("/posts")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       const listOfPosts = document.createElement("div");
       listOfPosts.classList.add("list-group");
       data.forEach((post) => {
-        console.log(post);
         const listGroupPost = document.createElement("a");
         listGroupPost.classList.add(
           "list-group-item",
@@ -57,6 +55,8 @@ const displayPosts = () => {
         divWrapper.appendChild(timestamp);
         listGroupPost.appendChild(postContent);
         listOfPosts.appendChild(listGroupPost);
+
+        // TODO: Add likes
       });
       allPosts.appendChild(listOfPosts);
     });
