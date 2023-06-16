@@ -42,6 +42,9 @@ const displayPosts = () => {
           "justify-content-between",
           "pb-3",
         );
+        const postHeading = document.createElement("h5");
+        postHeading.classList.add("mb-1");
+        postHeading.innerText = post.user;
       });
     });
 };
