@@ -21,10 +21,16 @@ const createNewPost = () => {
 
 const displayPosts = () => {
   const allPosts = document.querySelector("#allPosts");
+  allPosts.classList.add("mt-5");
   fetch("/posts")
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      const listOfPosts = document.createElement("div");
+      listOfPosts.classList.add("list-group");
+      data.forEach((post) => {
+        console.log(post);
+      });
     });
 };
 
