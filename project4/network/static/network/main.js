@@ -30,6 +30,11 @@ const displayPosts = () => {
       listOfPosts.classList.add("list-group");
       data.forEach((post) => {
         console.log(post);
+        const listGroupPost = document.createElement("a");
+        listGroupPost.classList.add(
+          "list-group-item",
+          "list-group-item-action",
+        );
       });
     });
 };
