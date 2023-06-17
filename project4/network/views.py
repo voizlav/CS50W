@@ -93,3 +93,10 @@ def posts(request):
         return JsonResponse({"error": "GET request required."}, status=400)
     result = list(reversed([post.serialize() for post in Post.objects.all()]))
     return JsonResponse(result, safe=False)
+
+
+def login_status(request):
+    if request.user.is_authenticated:
+        return JsonResponse({"logged_in": True})
+
+    return JsonResponse({"logged_in": False})
