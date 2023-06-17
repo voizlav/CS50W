@@ -1,7 +1,9 @@
 const init = () => {
   document.addEventListener("DOMContentLoaded", () => {
-    createNewPost();
     displayPosts();
+    fetch("/login_status")
+      .then((res) => res.json())
+      .then((data) => data["logged_in"] && createNewPost());
   });
 };
 
