@@ -24,12 +24,12 @@ const createNewPost = () => {
   };
 };
 
-const displayPosts = () => {
+const displayPosts = (user = null) => {
   const allPosts = document.querySelector("#allPosts");
   allPosts.classList.add("mt-5");
   allPosts.innerHTML = "";
 
-  fetch("/posts")
+  fetch(user ? `/posts/${user}` : "/posts")
     .then((res) => res.json())
     .then((data) => {
       const listOfPosts = document.createElement("div");
