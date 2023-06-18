@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User, Post
+from .models import User, Post, Follow
 
 
 def index(request):
@@ -100,3 +100,21 @@ def login_status(request):
         return JsonResponse({"logged_in": True})
 
     return JsonResponse({"logged_in": False})
+
+
+@login_required
+def follow(request, user_id):
+    if request.method != "POST":
+        return JsonResponse({"error": "GET request required"}, status=400)
+    if request.user.id == user_id:
+        return JsonResponse({"error": "Cannot follow yourself"}, status=400)
+    try:
+        follower = User.objects.get(id=request.user.id)
+        followed = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({"error": "User does not exist"}, 400)
+    if Follow.objects.filter(follower=follower, followed=followed).exists():
+        return JsonResponse({"error": "Already following this user."}, status=400)
+    follow = Follow(follower=follower, followed=followed)
+    follow.save()
+    return JsonResponse({"message": "User followed successfully."}, status=201)
