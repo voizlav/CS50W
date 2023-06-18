@@ -136,9 +136,9 @@ def unfollow(request, user_id):
 
 
 @login_required
-def following(request):
+def following(request, page_num):
     follower = User.objects.get(id=request.user.id)
     followed = [user.followed for user in follower.user_follower.all()]
     posts = [post.serialize() for post in Post.objects.filter(user__in=followed)]
     result = list(reversed(sorted(posts, key=lambda post: post["id"])))
-    return JsonResponse(result, safe=False)
+    return render(request, "network/following.html", {"posts": result})
