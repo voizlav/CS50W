@@ -141,5 +141,7 @@ def following(request, page_num):
     follower = User.objects.get(id=request.user.id)
     followed = [user.followed for user in follower.user_follower.all()]
     posts = [post.serialize() for post in Post.objects.filter(user__in=followed)]
-    result = list(reversed(sorted(posts, key=lambda post: post["id"])))
-    return render(request, "network/following.html", {"posts": result})
+    posts = list(reversed(sorted(posts, key=lambda post: post["id"])))
+    p = Paginator(posts, 2)  # TODO 10 post per page
+    page = p.page(page_num)
+    return render(request, "network/following.html", {"page": page})
