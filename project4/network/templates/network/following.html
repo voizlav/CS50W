@@ -21,6 +21,16 @@
             </div>  
         </div>
         {% endfor %}
+        <div class="d-flex align-items-center justify-content-center pt-5">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Small post page navigation buttons">
+                {% if page.has_previous %}
+                <a href="{{page.previous_page_number}}" type="button" class="btn btn-outline-dark" style="width: 100px;" id="previous">Previous</a>
+                {% endif %}
+                {% if page.has_next %}
+                <a href="{{page.next_page_number}}" type="button" class="btn btn-outline-dark" style="width: 100px;" id="next">Next</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
