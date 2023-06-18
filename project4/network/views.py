@@ -109,10 +109,10 @@ def follow(request, user_id):
         return JsonResponse({"error": "GET request required"}, status=400)
     if request.user.id == user_id:
         return JsonResponse({"error": "Cannot follow yourself"}, status=400)
-
-    follower = User.objects.get(id=request.user.id)
-    followed = User.objects.filter(id=user_id)
-    if not followed.exists():
+    try:
+        follower = User.objects.get(id=request.user.id)
+        followed = User.objects.get(id=user_id)
+    except User.DoesNotExist:
         return JsonResponse({"error": "User does not exist"}, status=400)
     if Follow.objects.filter(follower=follower, followed=followed).exists():
         return JsonResponse({"error": "Already following this user."}, status=400)
@@ -133,3 +133,12 @@ def unfollow(request, user_id):
         return JsonResponse({"error": "You are not following this user."}, status=400)
     follow.delete()
     return JsonResponse({"message": "User unfollowed successfully."}, status=201)
+
+
+@login_required
+def following(request):
+    follower = User.objects.get(id=request.user.id)
+    followed = [user.followed for user in follower.user_follower.all()]
+    posts = Post.objects.filter(user__in=followed)
+    result = [post.serialize() for post in posts]
+    return JsonResponse(result, safe=False)
