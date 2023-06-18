@@ -139,6 +139,6 @@ def unfollow(request, user_id):
 def following(request):
     follower = User.objects.get(id=request.user.id)
     followed = [user.followed for user in follower.user_follower.all()]
-    posts = Post.objects.filter(user__in=followed)
-    result = [post.serialize() for post in posts]
+    posts = [post.serialize() for post in Post.objects.filter(user__in=followed)]
+    result = list(reversed(sorted(posts, key=lambda post: post["id"])))
     return JsonResponse(result, safe=False)
