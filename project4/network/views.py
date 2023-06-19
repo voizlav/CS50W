@@ -152,19 +152,34 @@ def following(request):
     return render(request, "network/index.html", {"page": page})
 
 
+@login_required
 def like(request, post_id):
-    # if request.method != "POST":
-    #     return JsonResponse({"error": "POST request required."}, status=400)
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
     try:
         liker = User.objects.get(id=request.user.id)
         post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:
         return JsonResponse({"error": "Post does not exist"}, status=400)
-    if liker.user_like.filter(id=post_id).exists():
-        return JsonResponse({"error": "Post already liked"}, status=400)
+    for like in liker.user_like.all():
+        if like.post.id == post.id:
+            return JsonResponse({"error": "Post already liked."}, status=400)
     liked = Like(like=liker, post=post)
+    liked.save()
     return JsonResponse({"message": "Post liked successfully."}, status=201)
 
 
-def unlike(request):
-    pass
+@login_required
+def unlike(request, post_id):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    try:
+        unliker = User.objects.get(id=request.user.id)
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post does not exist"}, status=400)
+    for like in unliker.user_like.all():
+        if like.post.id == post_id:
+            like.delete()
+            return JsonResponse({"message": "Post unliked successfully."}, status=201)
+    return JsonResponse({"error": "Post is not liked."}, status=400)
