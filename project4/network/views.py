@@ -150,3 +150,21 @@ def following(request):
     page_num = request.GET.get("page", 1)
     page = p.page(page_num)
     return render(request, "network/index.html", {"page": page})
+
+
+def like(request, post_id):
+    # if request.method != "POST":
+    #     return JsonResponse({"error": "POST request required."}, status=400)
+    try:
+        liker = User.objects.get(id=request.user.id)
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post does not exist"}, status=400)
+    if liker.user_like.filter(id=post_id).exists():
+        return JsonResponse({"error": "Post already liked"}, status=400)
+    liked = Like(like=liker, post=post)
+    return JsonResponse({"message": "Post liked successfully."}, status=201)
+
+
+def unlike(request):
+    pass
