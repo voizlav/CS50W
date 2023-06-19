@@ -153,6 +153,7 @@ def following(request):
 
 
 @login_required
+@csrf_exempt
 def like(request, post_id):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
@@ -164,7 +165,18 @@ def like(request, post_id):
     for like in liker.user_like.all():
         if like.post.id == post.id:
             like.delete()
-            return JsonResponse({"error": "Post unliked successfully."}, status=201)
+            return JsonResponse({"message": "Post unliked successfully."}, status=201)
     liked = Like(like=liker, post=post)
     liked.save()
     return JsonResponse({"message": "Post liked successfully."}, status=201)
+
+
+@login_required
+def likes(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+        likes = post.post_like.all()
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post does not exist"}, status=400)
+    likes = [user.like.username for user in likes]
+    return JsonResponse({"likes": likes}, status=200)
