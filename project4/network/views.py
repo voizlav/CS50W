@@ -100,13 +100,6 @@ def posts(request):
     return JsonResponse(result, safe=False)
 
 
-def login_status(request):
-    if request.user.is_authenticated:
-        return JsonResponse({"logged_in": True})
-
-    return JsonResponse({"logged_in": False})
-
-
 @login_required
 @csrf_exempt
 def follow(request, user_id):
