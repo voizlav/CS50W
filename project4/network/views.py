@@ -12,7 +12,11 @@ from .models import User, Post, Follow
 
 
 def index(request):
-    return render(request, "network/index.html")
+    result = list(reversed([post.serialize() for post in Post.objects.all()]))
+    p = Paginator(result, 10)
+    page_num = request.GET.get("page", 1)
+    page = p.page(page_num)
+    return render(request, "network/index.html", {"page": page})
 
 
 def login_view(request):
@@ -137,11 +141,12 @@ def unfollow(request, user_id):
 
 
 @login_required
-def following(request, page_num):
+def following(request):
     follower = User.objects.get(id=request.user.id)
     followed = [user.followed for user in follower.user_follower.all()]
     posts = [post.serialize() for post in Post.objects.filter(user__in=followed)]
     posts = list(reversed(sorted(posts, key=lambda post: post["id"])))
-    p = Paginator(posts, 2)  # TODO 10 post per page
+    p = Paginator(posts, 10)
+    page_num = request.GET.get("page", 1)
     page = p.page(page_num)
-    return render(request, "network/following.html", {"page": page})
+    return render(request, "network/index.html", {"page": page})
