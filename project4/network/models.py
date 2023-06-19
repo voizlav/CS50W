@@ -10,7 +10,6 @@ class Post(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="user_post")
     content = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
-    # TODO likes
 
     def serialize(self):
         return {
@@ -19,6 +18,11 @@ class Post(models.Model):
             "content": self.content,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
         }
+
+
+class Like(models.Model):
+    like = models.ForeignKey("User", on_delete=models.CASCADE, related_name="user_like")
+    post = models.ForeignKey("Post", on_delete=models.CASCADE, related_name="post_like")
 
 
 class Follow(models.Model):
