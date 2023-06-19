@@ -1,5 +1,6 @@
 const init = () => {
   document.addEventListener("DOMContentLoaded", () => {
+    likes();
     createNewPost();
   });
 };
@@ -19,6 +20,33 @@ const createNewPost = () => {
           window.location.href = "/";
         }
       });
+  };
+};
+
+const likes = () => {
+  document.querySelectorAll(".like-button").forEach((post) => {
+    fetch(`/likes/${post.dataset.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        displayLikes(post, data);
+        setLikesListener(post);
+      });
+  });
+};
+
+const displayLikes = (post, data) => {
+  post.querySelector(".display-likes").innerText = data.likes.length;
+};
+
+const setLikesListener = (post) => {
+  post.onclick = () => {
+    fetch(`/like/${post.dataset.id}`, { method: "POST" })
+      .then((res) => res.json())
+      .then((data) =>
+        fetch(`/likes/${post.dataset.id}`)
+          .then((res) => res.json())
+          .then((data) => displayLikes(post, data)),
+      );
   };
 };
 
