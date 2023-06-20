@@ -3,41 +3,47 @@
 
 {% block body %}
     <div class="container">
-        <h2>All Posts</h2>
+        <div class="text-center">
+            <h2>All Posts</h2>
+        </div>
         {% if user.is_authenticated %}
-            <div class="border p-3">
+        <div class="container align-items-center justify-content-center d-flex">
+            <div class="border p-3 mt-3" style="width: 800px;">
                 <h4>New Post</h4>
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="What's happening?" id="newPost" style="height: 100px"></textarea>
+                    <textarea class="form-control"  placeholder="What's happening?" id="newPost" style="height: 100px"></textarea>
                     <label for="newPost">What's happening?</label>
                 </div>
-                <button type="button" class="btn btn-primary btn-sm mt-3" id="newPostButton">Post</button>
+                <button type="button" class="btn btn-white border btn-sm mt-3" id="newPostButton">Post</button>
             </div>
+        </div>
         {% endif %}
-        <div class="container pt-5 pb-5">
-            <div class="list-group">
+        <div class="container pt-5 pb-5 align-items-center justify-content-center d-flex ">
+            <div class="list-group " style="width: 600px;">
                 {% for post in page.object_list %}
-                <div class="list-group-item list-group-item-action">
+                <div class="list-group-item list-group-item-action mt-3 mb-3 border-top rounded shadow-sm width">
                     <div class="d-flex justify-content-between">
-                        <h5 class="mb-1">@{{post.user}}</h5>
-                        <small>{{post.timestamp}}</small>
+                        <h5 class="mb-1 text-muted">@{{post.user}}</h5>
+                        <small class="text-muted">{{post.timestamp}}</small>
                     </div>
-                    <p class="mb-5 mt-3">{{post.content}}</p>
+                    <p class="mb-3 mt-3 lh-sm">{{post.content}}</p>
                     <div class="d-flex w-100 justify-content-between">
-                        {% if user.username == post.user %}
-                        <button class="edit-button btn btn-white border text-gray btn-small" type="button" data-id="{{post.id}}">
-                            <i class="bi bi-pencil"></i> <small class="text-muted">Edit</small>
-                        </button>
-                        {% else %}
-                        <small class="text-muted">{% if post.edited %}Edited{% endif %}</small>
-                        {% endif %}
                         <button class="like-button btn btn-white text-danger" type="button" data-id="{{post.id}}">
                             <i class="bi bi-heart"></i> <span class="display-likes text-muted">0</span>
                         </button>
+                        {% if user.username == post.user %}
+                        <button class="edit-button btn btn-white border btn-small" type="button" data-id="{{post.id}}">
+                            <i class="bi bi-pencil text-muted"></i> <small class="text-muted">Edit</small>
+                        </button>
+                        {% else %}
+                        <small class="me-3 fw-lighter pt-2">{% if post.edited %}Edited{% endif %}</small>
+                        {% endif %}
                     </div>  
                 </div>
                 {% empty %}
-                <p>Currently, there is no content available.</p>
+                <div class="text-center shadow-sm p-5 border rounded">
+                    <h5 class="text-muted">Currently, there is no content available.</h5>
+                </div>
                 {% endfor %}
                 <div class="d-flex align-items-center justify-content-center pt-5">
                     <div class="btn-group btn-group-sm" role="group" aria-label="Small post page navigation buttons">
