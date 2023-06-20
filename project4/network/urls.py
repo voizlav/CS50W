@@ -6,7 +6,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
-    path("login_status", views.login_status, name="login_status"),
     path("register", views.register, name="register"),
     path("newpost", views.newpost, name="newpost"),
     path("posts", views.posts, name="posts"),
@@ -15,4 +14,5 @@ urlpatterns = [
     path("following", views.following, name="following"),
     path("like/<int:post_id>", views.like, name="like"),
     path("likes/<int:post_id>", views.likes, name="likes"),
+    path("edit/<int:post_id>", views.edit, name="edit"),
 ]
