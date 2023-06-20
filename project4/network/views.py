@@ -173,3 +173,27 @@ def likes(request, post_id):
         return JsonResponse({"error": "Post does not exist"}, status=400)
     likes = [user.like.username for user in likes]
     return JsonResponse({"likes": likes}, status=200)
+
+
+@login_required
+@csrf_exempt
+def edit(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post does not exist."}, status=400)
+    if request.user != post.user:
+        return JsonResponse({"error": "Forbidden."}, status=400)
+    try:
+        data = json.loads(request.body)
+        content = data.get("content", "")
+        if not content:
+            return JsonResponse({"error": "Empty post."}, status=400)
+        if len(content) > 255:
+            return JsonResponse({"error": "Post is too long."}, status=400)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "JSON data required."}, status=400)
+    post.content = content
+    post.edited = True
+    post.save()
+    return JsonResponse({"content": post.content})
