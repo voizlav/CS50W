@@ -134,8 +134,12 @@ def following(request):
     posts = [post.serialize() for post in Post.objects.filter(user__in=followed)]
     posts = list(reversed(sorted(posts, key=lambda post: post["id"])))
     p = Paginator(posts, 10)
-    page_num = request.GET.get("page", 1)
-    page = p.page(page_num)
+    try:
+        page = p.page(request.GET.get("page", 1))
+    except PageNotAnInteger:
+        page = p.page(1)
+    except EmptyPage:
+        page = p.page(p.num_pages)
     return render(request, "network/index.html", {"page": page})
 
 
