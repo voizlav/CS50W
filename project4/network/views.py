@@ -6,7 +6,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 from .models import User, Post, Follow, Like
 
@@ -14,9 +15,14 @@ from .models import User, Post, Follow, Like
 def index(request):
     result = list(reversed([post.serialize() for post in Post.objects.all()]))
     p = Paginator(result, 10)
-    page_num = request.GET.get("page", 1)
-    page = p.page(page_num)
-    return render(request, "network/index.html", {"page": page})
+    try:
+        page_num = request.GET.get("page", 1)
+        page = p.page(page_num)
+    except PageNotAnInteger:
+        page = p.page(1)
+    except EmptyPage:
+        page = p.page(p.num_pages)
+    return render(request, "network/index.html", {"page": page, "all_posts": True})
 
 
 def login_view(request):
@@ -197,3 +203,25 @@ def edit(request, post_id):
     post.edited = True
     post.save()
     return JsonResponse({"content": post.content})
+
+
+def profile(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise Http404("User doesn't exist.")
+    posts = list(reversed([post.serialize() for post in user.user_post.all()]))
+    p = Paginator(posts, 10)
+    try:
+        page = p.page(request.GET.get("page", 1))
+    except PageNotAnInteger:
+        page = p.page(1)
+    except EmptyPage:
+        page = p.page(p.num_pages)
+    follower = user.user_follower.all()
+    followed = user.user_followed.all()
+    return render(
+        request,
+        "network/index.html",
+        {"page": page, "follower": follower, "followed": followed, "profile": username},
+    )
