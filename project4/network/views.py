@@ -110,7 +110,7 @@ def posts(request):
 @csrf_exempt
 def follow(request, user_id):
     if request.method != "POST":
-        return JsonResponse({"error": "GET request required"}, status=400)
+        return JsonResponse({"error": "POST request required"}, status=400)
     if request.user.id == user_id:
         return JsonResponse({"error": "Cannot follow yourself"}, status=400)
     try:
@@ -197,11 +197,28 @@ def edit(request, post_id):
     return JsonResponse({"content": post.content})
 
 
+@csrf_exempt
 def profile(request, username):
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         raise Http404("User doesn't exist.")
+    follower = user.user_follower.all()
+    followed = user.user_followed.all()
+    is_followed = (
+        any(user.follower == request.user for user in followed)
+        if request.user.is_authenticated
+        else False
+    )
+    if request.method == "POST":
+        return JsonResponse(
+            {
+                "following": len(follower),
+                "followers": len(followed),
+                "is_followed": is_followed,
+            },
+            status=200,
+        )
     posts = list(reversed([post.serialize() for post in user.user_post.all()]))
     p = Paginator(posts, 10)
     try:
@@ -210,10 +227,14 @@ def profile(request, username):
         page = p.page(1)
     except EmptyPage:
         page = p.page(p.num_pages)
-    follower = user.user_follower.all()
-    followed = user.user_followed.all()
     return render(
         request,
         "network/index.html",
-        {"page": page, "follower": follower, "followed": followed, "profile": username},
+        {
+            "page": page,
+            "follower": follower,
+            "followed": followed,
+            "is_followed": is_followed,
+            "profile": username,
+        },
     )
