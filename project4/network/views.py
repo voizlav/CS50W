@@ -236,5 +236,6 @@ def profile(request, username):
             "followed": followed,
             "is_followed": is_followed,
             "profile": username,
+            "id": user.id,
         },
     )
