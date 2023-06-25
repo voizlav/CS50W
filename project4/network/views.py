@@ -118,25 +118,13 @@ def follow(request, user_id):
         followed = User.objects.get(id=user_id)
     except User.DoesNotExist:
         return JsonResponse({"error": "User does not exist"}, status=400)
-    if Follow.objects.filter(follower=follower, followed=followed).exists():
-        return JsonResponse({"error": "Already following this user."}, status=400)
+    unfollow = Follow.objects.filter(follower=follower, followed=followed)
+    if unfollow.exists():
+        unfollow.delete()
+        return JsonResponse({"message": "User unfollowed successfully."}, status=201)
     follow = Follow(follower=follower, followed=followed)
     follow.save()
     return JsonResponse({"message": "User followed successfully."}, status=201)
-
-
-@login_required
-@csrf_exempt
-def unfollow(request, user_id):
-    if request.method != "POST":
-        return JsonResponse({"error": "GET request required"}, status=400)
-    if request.user.id == user_id:
-        return JsonResponse({"error": "Cannot unfollow yourself"}, status=400)
-    follow = Follow.objects.filter(follower=request.user.id, followed=user_id)
-    if not follow.exists():
-        return JsonResponse({"error": "You are not following this user."}, status=400)
-    follow.delete()
-    return JsonResponse({"message": "User unfollowed successfully."}, status=201)
 
 
 @login_required
