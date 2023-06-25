@@ -12,7 +12,9 @@
                     {% if not profile == user.username %}
                     <!-- FOLLOW BUTTON -->
                     <button class="follow-button btn btn-white text-dark border fw-bold"
-                    {% if not user.is_authenticated %}disabled{% endif %}>Follow</button>
+                    {% if not user.is_authenticated %}disabled{% endif %}>
+                        {% if is_followed %}Unfollow{% else %}Follow{% endif %}
+                    </button>
                     {% endif %}
                 </div>
                 <!-- FOLLWING AND FOLLOWERS COUNTER -->
