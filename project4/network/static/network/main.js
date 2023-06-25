@@ -9,19 +9,19 @@ const init = () => {
 const createNewPost = () => {
   const newPost = document.querySelector("#newPost");
   const newPostButton = document.querySelector("#newPostButton");
-
-  newPostButton.onclick = () => {
-    fetch("/newpost", {
-      method: "POST",
-      body: JSON.stringify({ content: newPost.value }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          window.location.href = "/";
-        }
-      });
-  };
+  if (newPostButton)
+    newPostButton.onclick = () => {
+      fetch("/newpost", {
+        method: "POST",
+        body: JSON.stringify({ content: newPost.value }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message) {
+            window.location.href = "/";
+          }
+        });
+    };
 };
 
 const editPost = () => {
