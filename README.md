@@ -42,5 +42,5 @@ This course picks up where CS50x leaves off, diving more deeply into the design 
 [1]: /search/
 [2]: /wiki/
 [3]: /commerce/
-[4]: .
-[5]: .
+[4]: /mail/
+[5]: /project4/
