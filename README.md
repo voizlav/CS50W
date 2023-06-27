@@ -24,11 +24,11 @@ This course picks up where CS50x leaves off, diving more deeply into the design 
 
 ### Week 5 *JavaScript*
 
-- [ ] [Project 3: Mail][0]
+- [x] [Project 3: Mail][0]
 
 ### Week 6 *User Interfaces*
 
-- [ ] [Project 3: Mail][0]
+- [x] [Project 3: Mail][0]
 
 ### Week 7 *Testing, CI/CD*
 
