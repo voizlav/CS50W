@@ -32,7 +32,7 @@ This course picks up where CS50x leaves off, diving more deeply into the design 
 
 ### Week 7 *Testing, CI/CD*
 
-- [ ] [Project 4: Network][0]
+- [x] [Project 4: Network][0]
 
 ### Week 8 *Scalability and Security*
 
