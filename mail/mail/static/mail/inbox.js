@@ -39,7 +39,10 @@ const reply_email = (email_id) => {
     .then((res) => res.json())
     .then((data) => {
       document.querySelector("#compose-recipients").value = data.sender;
-      document.querySelector("#compose-subject").value = data.subject;
+      document.querySelector("#compose-subject").value =
+        data.subject.slice(0, 3) === "Re:"
+          ? data.subject
+          : `Re: ${data.subject}`;
       document.querySelector(
         "#compose-body",
       ).value = `"${data.timestamp} ${data.sender} wrote:\n${data.body}"`;
